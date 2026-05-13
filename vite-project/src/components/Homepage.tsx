@@ -1,5 +1,7 @@
 import { COURSE } from '../data/course';
 import { useProgress } from '../context/ProgressContext';
+import { useMastery } from '../context/MasteryContext';
+import { MasteryBadge } from './Masterybadge';
 import type { Lesson } from '../types/course';
 import styles from './HomePage.module.css';
 
@@ -9,6 +11,7 @@ interface HomePageProps {
 
 export function HomePage({ onSelectTopic }: HomePageProps) {
   const { isOpened, isCompleted, completedCount } = useProgress();
+  const { getMastery } = useMastery();
   const totalTopics = COURSE.flatMap((l) => l.topics).length;
 
   function lessonProgress(lesson: Lesson) {
@@ -71,20 +74,18 @@ export function HomePage({ onSelectTopic }: HomePageProps) {
                 {/* Topic pills */}
                 <div className={styles.topicPills}>
                   {lesson.topics.map((topic) => {
-                    const done = isCompleted(topic.id);
+                    const done   = isCompleted(topic.id);
                     const opened = isOpened(topic.id);
+                    const mastery = getMastery(topic.id);
                     return (
                       <button
                         key={topic.id}
                         className={`${styles.pill} ${done ? styles.pillDone : opened ? styles.pillOpened : ''}`}
                         onClick={() => onSelectTopic(lesson.id, topic.id)}
                       >
-                        <span
-                          className={`${styles.pillDot} ${
-                            done ? styles.pillDotDone : opened ? styles.pillDotOpened : ''
-                          }`}
-                        />
+                        <span className={`${styles.pillDot} ${done ? styles.pillDotDone : opened ? styles.pillDotOpened : ''}`} />
                         {topic.title}
+                        <MasteryBadge level={mastery.level} size="sm" />
                       </button>
                     );
                   })}

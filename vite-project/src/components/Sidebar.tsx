@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { COURSE } from '../data/course';
 import { useProgress } from '../context/ProgressContext';
+import { useMastery } from '../context/MasteryContext';
+import { MasteryBadge } from './Masterybadge';
 import type { Lesson, Topic } from '../types/course';
 import styles from './Sidebar.module.css';
 
@@ -11,7 +13,8 @@ interface SidebarProps {
 }
 
 export function Sidebar({ activeTopic, onSelectTopic, onGoHome }: SidebarProps) {
-  const { isOpened, isCompleted, completedCount, progress } = useProgress();
+  const { isOpened, isCompleted, completedCount } = useProgress();
+  const { getMastery } = useMastery();
   const totalTopics = COURSE.flatMap((l) => l.topics).length;
   const overallPct = totalTopics ? Math.round((completedCount / totalTopics) * 100) : 0;
 
@@ -108,6 +111,7 @@ export function Sidebar({ activeTopic, onSelectTopic, onGoHome }: SidebarProps) 
                     isActive={activeTopic === topic.id}
                     isOpened={isOpened(topic.id)}
                     isCompleted={isCompleted(topic.id)}
+                    masteryLevel={getMastery(topic.id).level}
                     onSelect={onSelectTopic}
                   />
                 ))}
@@ -128,10 +132,11 @@ interface TopicButtonProps {
   isActive: boolean;
   isOpened: boolean;
   isCompleted: boolean;
+  masteryLevel: import('../types/quiz').MasteryLevel;
   onSelect: (lessonId: string, topicId: string) => void;
 }
 
-function TopicButton({ topic, lessonId, isActive, isOpened, isCompleted, onSelect }: TopicButtonProps) {
+function TopicButton({ topic, lessonId, isActive, isOpened, isCompleted, masteryLevel, onSelect }: TopicButtonProps) {
   const dotClass = isCompleted
     ? styles.dotDone
     : isOpened
@@ -147,7 +152,7 @@ function TopicButton({ topic, lessonId, isActive, isOpened, isCompleted, onSelec
     >
       <span className={`${styles.dot} ${dotClass}`} />
       <span className={styles.topicTitle}>{topic.title}</span>
-      <span className={styles.topicDur}>{topic.duration}</span>
+      <MasteryBadge level={masteryLevel} size="sm" />
     </button>
   );
 }

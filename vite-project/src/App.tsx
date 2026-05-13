@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ProgressProvider } from './context/ProgressContext';
+import { MasteryProvider } from './context/MasteryContext';
 import { Sidebar } from './components/Sidebar';
 import { HomePage } from './components/Homepage';
 import { TopicPage } from './components/Topicpage';
@@ -24,26 +25,28 @@ export default function App() {
 
   return (
     <ProgressProvider>
-      <div className="layout">
-        <Sidebar
-          activeTopic={activeTopic}
-          onSelectTopic={handleSelectTopic}
-          onGoHome={handleGoHome}
-        />
-
-        {view.type === 'home' && (
-          <HomePage onSelectTopic={handleSelectTopic} />
-        )}
-
-        {view.type === 'topic' && (
-          <TopicPage
-            lessonId={view.lessonId}
-            topicId={view.topicId}
-            onBack={handleGoHome}
-            onNavigate={handleSelectTopic}
+      <MasteryProvider>
+        <div className="layout">
+          <Sidebar
+            activeTopic={activeTopic}
+            onSelectTopic={handleSelectTopic}
+            onGoHome={handleGoHome}
           />
-        )}
-      </div>
+
+          {view.type === 'home' && (
+            <HomePage onSelectTopic={handleSelectTopic} />
+          )}
+
+          {view.type === 'topic' && (
+            <TopicPage
+              lessonId={view.lessonId}
+              topicId={view.topicId}
+              onBack={handleGoHome}
+              onNavigate={handleSelectTopic}
+            />
+          )}
+        </div>
+      </MasteryProvider>
     </ProgressProvider>
   );
 }

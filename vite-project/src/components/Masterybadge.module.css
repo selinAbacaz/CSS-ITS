@@ -1,0 +1,44 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 99px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border: 1.5px solid transparent;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Sizes */
+.sm {
+  padding: 2px 7px;
+  font-size: 0.65rem;
+}
+
+.md {
+  padding: 4px 11px;
+  font-size: 0.75rem;
+}
+
+.icon {
+  font-size: 0.8em;
+}
+
+/* Levels */
+.red {
+  background: #FEE9E9;
+  color: #C0392B;
+  border-color: rgba(192, 57, 43, 0.25);
+}
+
+.yellow {
+  background: #FEF8E1;
+  color: #B7860B;
+  border-color: rgba(183, 134, 11, 0.25);
+}
+
+.green {
+  background: #E8F8EE;
+  color: #1E8449;
+  border-color: rgba(30, 132, 73, 0.25);
+}

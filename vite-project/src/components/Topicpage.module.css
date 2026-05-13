@@ -188,19 +188,6 @@
   margin: 0;
 }
 
-/* Actions */
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.navBtns {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-
 .navBtn {
   display: inline-flex;
   align-items: center;
@@ -226,29 +213,128 @@
   margin-left: auto;
 }
 
-.completeBtn {
+/* ── Quiz section (added above) ── */
+
+/* ── Hero title row (title + mastery badge) */
+.heroTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* ── Quiz section ───────────────────────────────────────────────────────── */
+.quizSection {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 8px;
+}
+
+.quizSectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.quizSectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.quizSectionSub {
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* Completed banner */
+.completedBanner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #E8F8EE;
+  border: 1.5px solid rgba(76, 175, 125, 0.3);
+  border-radius: 16px;
+  padding: 16px 20px;
+  animation: feedbackIn 0.3s ease both;
+}
+
+.completedIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #4CAF7D;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--text);
-  color: white;
-  border: none;
-  border-radius: 14px;
-  padding: 14px 32px;
-  font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
+  flex-shrink: 0;
+}
+
+.completedTitle {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1E6B3C;
+}
+
+.completedSub {
+  font-size: 0.8rem;
+  color: #2E7D52;
+  margin-top: 2px;
+}
+
+.undoBtn {
+  margin-left: auto;
+  background: none;
+  border: 1px solid rgba(76, 175, 125, 0.4);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: #1E6B3C;
   cursor: pointer;
-  transition: opacity 0.2s, background 0.25s;
-  letter-spacing: 0.02em;
+  transition: background 0.15s;
+  flex-shrink: 0;
 }
 
-.completeBtn:hover {
-  opacity: 0.85;
+.undoBtn:hover {
+  background: rgba(76, 175, 125, 0.1);
 }
 
-.completeBtnDone {
-  background: var(--green);
+/* Locked banner */
+.lockedBanner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FEF8E1;
+  border: 1.5px solid rgba(183, 134, 11, 0.25);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 0.86rem;
+  color: var(--text-mid);
+  line-height: 1.55;
+  animation: feedbackIn 0.3s ease both;
+}
+
+/* Nav buttons row */
+.navBtns {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 48px;
+}
+
+@keyframes feedbackIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 768px) {
