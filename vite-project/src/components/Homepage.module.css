@@ -1,0 +1,265 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 48px;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+/* Hero */
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 52px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(154, 123, 79, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroTag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 700;
+  background: var(--accent-bg);
+  padding: 4px 12px;
+  border-radius: 99px;
+  border: 1px solid rgba(154, 123, 79, 0.2);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-top: 16px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.heroTitle em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.heroDesc {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: var(--text-mid);
+  max-width: 480px;
+  line-height: 1.75;
+}
+
+.stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 36px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNum {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+/* Card list */
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.cardAccent {
+  width: 5px;
+  flex-shrink: 0;
+}
+
+.cardBody {
+  flex: 1;
+  padding: 24px 28px;
+  min-width: 0;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardTag {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.cardDifficulty {
+  font-size: 0.65rem;
+  background: #eef0ff;
+  color: #5560c8;
+  padding: 2px 9px;
+  border-radius: 99px;
+  font-weight: 600;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 8px;
+  color: var(--text);
+}
+
+.cardMeta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-top: 7px;
+}
+
+/* Progress bar */
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.progressTrack {
+  flex: 1;
+  max-width: 200px;
+  height: 5px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Topic pills */
+.topicPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 6px 14px;
+  font-family: var(--font-body);
+  font-size: 0.79rem;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.pill:hover {
+  background: var(--accent-bg);
+  border-color: rgba(154, 123, 79, 0.3);
+  color: var(--text);
+}
+
+.pillDone {
+  background: var(--green-bg) !important;
+  border-color: rgba(76, 175, 125, 0.3) !important;
+  color: #2e9060 !important;
+}
+
+.pillOpened {
+  background: var(--accent-bg);
+  border-color: rgba(154, 123, 79, 0.25);
+  color: var(--accent);
+}
+
+.pillDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.pillDotDone {
+  background: var(--green);
+}
+
+.pillDotOpened {
+  background: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 24px 20px;
+  }
+
+  .hero {
+    padding: 32px 28px;
+  }
+
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+}
