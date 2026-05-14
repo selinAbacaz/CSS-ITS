@@ -3,7 +3,6 @@ import styles from './MasteryBadge.module.css';
 
 interface MasteryBadgeProps {
   level: MasteryLevel;
-  /** Show the label text next to the dot */
   showLabel?: boolean;
   size?: 'sm' | 'md';
 }

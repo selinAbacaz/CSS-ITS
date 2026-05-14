@@ -22,11 +22,9 @@ export function LessonQuiz({ lessonId, questions, onComplete }: LessonQuizProps)
     questions.map(() => ({ status: 'unanswered' as const })),
   );
 
-  // In 'taking' phase: feedback shown immediately after answering.
-  // In 'review' phase: user browses already-answered questions before submitting.
-  // In 'submitted': show final summary.
+  
   const [phase, setPhase]           = useState<SessionPhase>('taking');
-  // Track which question is showing feedback right now (null = none)
+
   const [feedbackIdx, setFeedbackIdx] = useState<number | null>(null);
 
   const current       = questions[currentIdx];
@@ -36,7 +34,7 @@ export function LessonQuiz({ lessonId, questions, onComplete }: LessonQuizProps)
 
 
   function handleSelect(optionId: string) {
-    if (currentAnswer.status !== 'unanswered') return; // already answered
+    if (currentAnswer.status !== 'unanswered') return;
     const isCorrect = optionId === current.correctId;
     const newAnswers = [...answers];
     newAnswers[currentIdx] = isCorrect
@@ -49,7 +47,8 @@ export function LessonQuiz({ lessonId, questions, onComplete }: LessonQuizProps)
   
   function goTo(idx: number) {
     setCurrentIdx(idx);
-    // If navigating to an already answered question in 'taking', show feedback
+    
+
     if (phase === 'taking' && answers[idx].status !== 'unanswered') {
       setFeedbackIdx(idx);
     } else {
@@ -279,7 +278,7 @@ export function LessonQuizSummary({
       const mastery = getMastery(o.topicId);
       const pct     = o.total > 0 ? Math.round((o.correct / o.total) * 100) : 0;
       return { topicId: o.topicId, title: topic?.title ?? o.topicId, mastery, correct: o.correct, total: o.total, pct };
-    }).sort((a, b) => a.pct - b.pct); // weakest first
+    }).sort((a, b) => a.pct - b.pct);
   }, [outcomes, lesson, getMastery]);
 
   const headline = passed

@@ -1,13 +1,9 @@
 import type { Question } from '../types/quiz';
 
-/**
- * Question bank.
- * Each topic has 4-6 questions so the ITS can vary the set across retakes.
- * wrongFeedback is keyed per answer option so the feedback is targeted.
- */
+
 export const QUESTION_BANK: Question[] = [
 
-  // Lesson 1 Topic 1, Inline CSS 
+  
   {
     id: 'L1T1-Q1', type: 'mcq', topicId: 'L1T1',
     prompt: 'Which HTML attribute is used to apply inline CSS styles?',

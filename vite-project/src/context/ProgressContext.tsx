@@ -49,7 +49,7 @@ function saveToStorage(state: ProgressState) {
       })
     );
   } catch {
-    // silent
+    
   }
 }
 

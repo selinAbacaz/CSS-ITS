@@ -28,7 +28,6 @@ export default function App() {
     setView({ type: 'home' });
   }, []);
 
-  /** Navigate to first topic of a lesson */
   const handleNextLesson = useCallback((lessonId: string) => {
     const lesson = COURSE.find((l) => l.id === lessonId);
     if (lesson?.topics[0]) {

@@ -1,39 +1,40 @@
-// ── Mastery ──────────────────────────────────────────────────────────────────
 
 export type MasteryLevel = 'red' | 'yellow' | 'green';
 
 export interface TopicMastery {
   topicId: string;
+
+  pKnown: number;
+
   level: MasteryLevel;
-  /** Number of times this topic's quiz has been attempted */
+
   attempts: number;
-  /** Consecutive correct answers on the last run */
-  streak: number;
+
+  correct: number;
 }
 
-// ── Questions ─────────────────────────────────────────────────────────────────
+
 
 export interface AnswerOption {
-  id: string;       // 'a' | 'b' | 'c' | 'd'
+  id: string;      
   text: string;
-  /** Shown only when THIS wrong answer is chosen */
+ 
   wrongFeedback?: string;
 }
 
 export interface MultipleChoiceQuestion {
   id: string;
   type: 'mcq';
-  topicId: string;   // which topic this question tests
+  topicId: string;   
   prompt: string;
   options: AnswerOption[];
   correctId: string;
-  /** Shown when the correct answer is chosen */
+
   correctFeedback: string;
 }
 
 export type Question = MultipleChoiceQuestion;
 
-// ── Quiz session ──────────────────────────────────────────────────────────────
 
 export type AnswerState =
   | { status: 'unanswered' }
@@ -42,23 +43,21 @@ export type AnswerState =
 
 export interface QuizSession {
   questions: Question[];
-  current: number;         // index into questions[]
+  current: number;       
   answers: AnswerState[];
   finished: boolean;
   passed: boolean;
 }
 
-// ── Result summary ────────────────────────────────────────────────────────────
 
 export interface QuizResult {
   total: number;
   correct: number;
   passed: boolean;
-  /** score 0-100 */
   score: number;
 }
 
-// ── Lesson-level quiz record ──────────────────────────────────────────────────
+
 
 export interface LessonQuizRecord {
   lessonId: string;
@@ -67,9 +66,6 @@ export interface LessonQuizRecord {
   attempts: number;
 }
 
-/**
- * After a lesson quiz, group per-topic outcomes so mastery updates per topic.
- */
 export interface TopicQuizOutcome {
   topicId: string;
   correct: number;

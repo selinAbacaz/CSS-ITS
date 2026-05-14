@@ -79,7 +79,7 @@ export function HomePage({ onSelectTopic, onSelectLessonQuiz }: HomePageProps) {
                   <span className={styles.progressLabel}>{prog.done}/{prog.total} done</span>
                 </div>
 
-                {/* Topic pills — disabled if locked */}
+              
                 <div className={styles.topicPills}>
                   {lesson.topics.map((topic) => {
                     const done   = isCompleted(topic.id);
@@ -99,7 +99,6 @@ export function HomePage({ onSelectTopic, onSelectLessonQuiz }: HomePageProps) {
                     );
                   })}
 
-                  {/* Mastery quiz pill */}
                   <button
                     className={`${styles.pill} ${styles.pillQuiz} ${quizRec?.passed ? styles.pillQuizPassed : ''} ${!unlocked ? styles.pillDisabled : ''}`}
                     onClick={() => unlocked && onSelectLessonQuiz(lesson.id)}

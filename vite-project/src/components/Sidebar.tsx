@@ -146,7 +146,6 @@ export function Sidebar({
   );
 }
 
-// ── Sub-components ─────────────────────────────────────────────────────────────
 
 interface TopicButtonProps {
   topic: Topic;

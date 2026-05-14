@@ -7,7 +7,7 @@ import styles from './Quiz.module.css';
 
 interface QuizProps {
   topicId: string;
-  /** Called when session ends — parent decides what to do next */
+
   onComplete: (result: QuizResult) => void;
 }
 
@@ -62,11 +62,6 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
   }, [answers, questions.length, topicId, recordQuizResult, onComplete]);
 
   
-  // Retake is handled by parent re-mounting this component with a new key.
-  // We expose it via onComplete so parent can trigger.
-
-  
-  // (Summary is rendered in TopicPage — Quiz only shows questions + feedback)
 
   
   const mastery = getMastery(topicId);
@@ -80,7 +75,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
     return `${styles.option} ${styles.optionDim}`;
   }
 
-  // Feedback text for the current answer
+  
   function feedbackText(): { positive: boolean; text: string } {
     if (answer.status === 'correct') {
       return { positive: true, text: current.correctFeedback };
