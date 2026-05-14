@@ -1,122 +1,82 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState, useCallback } from 'react';
+import { ProgressProvider } from './context/ProgressContext';
+import { MasteryProvider } from './context/MasteryContext';
+import { Sidebar } from './components/Sidebar';
+import { HomePage } from './components/Homepage';
+import { TopicPage } from './components/Topicpage';
+import { LessonQuizPage } from './components/Lessonquizpage';
+import { COURSE } from './data/course';
+import './index.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+type View =
+  | { type: 'home' }
+  | { type: 'topic';       lessonId: string; topicId: string }
+  | { type: 'lessonQuiz';  lessonId: string };
+
+export default function App() {
+  const [view, setView] = useState<View>({ type: 'home' });
+
+  const handleSelectTopic = useCallback((lessonId: string, topicId: string) => {
+    setView({ type: 'topic', lessonId, topicId });
+  }, []);
+
+  const handleSelectLessonQuiz = useCallback((lessonId: string) => {
+    setView({ type: 'lessonQuiz', lessonId });
+  }, []);
+
+  const handleGoHome = useCallback(() => {
+    setView({ type: 'home' });
+  }, []);
+
+  const handleNextLesson = useCallback((lessonId: string) => {
+    const lesson = COURSE.find((l) => l.id === lessonId);
+    if (lesson?.topics[0]) {
+      setView({ type: 'topic', lessonId, topicId: lesson.topics[0].id });
+    } else {
+      setView({ type: 'home' });
+    }
+  }, []);
+
+  const activeTopic      = view.type === 'topic'      ? view.topicId  : null;
+  const activeLessonQuiz = view.type === 'lessonQuiz' ? view.lessonId : null;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <ProgressProvider>
+      <MasteryProvider>
+        <div className="layout">
+          <Sidebar
+            activeTopic={activeTopic}
+            activeLessonQuiz={activeLessonQuiz}
+            onSelectTopic={handleSelectTopic}
+            onSelectLessonQuiz={handleSelectLessonQuiz}
+            onGoHome={handleGoHome}
+          />
 
-      <div className="ticks"></div>
+          {view.type === 'home' && (
+            <HomePage
+              onSelectTopic={handleSelectTopic}
+              onSelectLessonQuiz={handleSelectLessonQuiz}
+            />
+          )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          {view.type === 'topic' && (
+            <TopicPage
+              lessonId={view.lessonId}
+              topicId={view.topicId}
+              onBack={handleGoHome}
+              onNavigate={handleSelectTopic}
+            />
+          )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+          {view.type === 'lessonQuiz' && (
+            <LessonQuizPage
+              lessonId={view.lessonId}
+              onBack={handleGoHome}
+              onNextLesson={handleNextLesson}
+            />
+          )}
+        </div>
+      </MasteryProvider>
+    </ProgressProvider>
+  );
 }
-
-export default App

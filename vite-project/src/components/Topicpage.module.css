@@ -1,0 +1,352 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 48px 64px;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+/* Back button */
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.15s, color 0.15s;
+}
+
+.backBtn:hover {
+  background: var(--accent-bg);
+  color: var(--text);
+  border-color: rgba(154, 123, 79, 0.3);
+}
+
+/* Hero */
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 44px 48px;
+}
+
+.heroTag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  margin: 0;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: 2.7rem;
+  font-weight: 800;
+  margin-top: 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.heroIntro {
+  font-size: 1rem;
+  color: var(--text-mid);
+  margin-top: 14px;
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+.heroIntro code {
+  font-family: 'Courier New', monospace;
+  background: var(--accent-bg);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-size: 0.88em;
+}
+
+.metaPills {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.metaPill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.76rem;
+  padding: 5px 14px;
+  border-radius: 99px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 500;
+  border: 1px solid rgba(154, 123, 79, 0.2);
+}
+
+.metaPillDone {
+  background: var(--green-bg);
+  color: #2e9060;
+  border-color: rgba(76, 175, 125, 0.3);
+}
+
+/* Sections */
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px 30px;
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 9px;
+}
+
+.sectionBody {
+  font-size: 0.93rem;
+  color: var(--text-mid);
+  line-height: 1.85;
+}
+
+.sectionBody code {
+  font-family: 'Courier New', monospace;
+  background: var(--accent-bg);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-size: 0.87em;
+}
+
+.sectionBody em {
+  font-style: italic;
+  color: var(--text);
+}
+
+.sectionBody strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Code block */
+.codeWrapper {
+  background: #1c1c1e;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.codeLabel {
+  padding: 10px 20px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.codeBlock {
+  padding: 22px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.84rem;
+  line-height: 1.75;
+  color: #d0cbbe;
+  white-space: pre;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.navBtn:hover {
+  background: var(--accent-bg);
+  color: var(--text);
+  border-color: rgba(154, 123, 79, 0.3);
+}
+
+.navBtnNext {
+  margin-left: auto;
+}
+
+/* ── Quiz section (added above) ── */
+
+/* ── Hero title row (title + mastery badge) */
+.heroTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* ── Quiz section ───────────────────────────────────────────────────────── */
+.quizSection {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 8px;
+}
+
+.quizSectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.quizSectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.quizSectionSub {
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* Completed banner */
+.completedBanner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #E8F8EE;
+  border: 1.5px solid rgba(76, 175, 125, 0.3);
+  border-radius: 16px;
+  padding: 16px 20px;
+  animation: feedbackIn 0.3s ease both;
+}
+
+.completedIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #4CAF7D;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.completedTitle {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1E6B3C;
+}
+
+.completedSub {
+  font-size: 0.8rem;
+  color: #2E7D52;
+  margin-top: 2px;
+}
+
+.undoBtn {
+  margin-left: auto;
+  background: none;
+  border: 1px solid rgba(76, 175, 125, 0.4);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: #1E6B3C;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.undoBtn:hover {
+  background: rgba(76, 175, 125, 0.1);
+}
+
+/* Locked banner */
+.lockedBanner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FEF8E1;
+  border: 1.5px solid rgba(183, 134, 11, 0.25);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 0.86rem;
+  color: var(--text-mid);
+  line-height: 1.55;
+  animation: feedbackIn 0.3s ease both;
+}
+
+/* Nav buttons row */
+.navBtns {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 48px;
+}
+
+@keyframes feedbackIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 24px 20px 48px;
+  }
+
+  .hero {
+    padding: 28px 24px;
+  }
+
+  .heroTitle {
+    font-size: 1.9rem;
+  }
+}
