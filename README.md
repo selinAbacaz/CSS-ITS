@@ -10,7 +10,7 @@ Lessons are divided into topics and have a multiple-choice quiz at the end of ea
 
 ### How ITS algorithm works
 
-*** I decided to base my algorithm on topic rather than knowledge components. *** The reason behind this choice is that knowledge components for CSS are very simple so I decided to teach via topic instead- this allows me to group several knowledge components into one topic with substance. 
+***I decided to base my algorithm on topic rather than knowledge components.*** The reason behind this choice is that knowledge components for CSS are very simple so I decided to teach via topic instead- this allows me to group several knowledge components into one topic with substance. 
 
 #### Red, yellow, green system
 
