@@ -263,3 +263,75 @@
     font-size: 2.2rem;
   }
 }
+
+/* ── Locked card ── */
+.cardLocked {
+  opacity: 0.7;
+}
+
+.cardLockedBadge {
+  font-size: 0.65rem;
+  background: #F5F5F5;
+  color: #888;
+  padding: 2px 9px;
+  border-radius: 99px;
+  font-weight: 600;
+  border: 1px solid #DDD;
+}
+
+.cardPassedBadge {
+  font-size: 0.65rem;
+  background: #E8F8EE;
+  color: #1E8449;
+  padding: 2px 9px;
+  border-radius: 99px;
+  font-weight: 600;
+  border: 1px solid rgba(76,175,125,0.3);
+}
+
+.lockedHint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.pillDisabled {
+  opacity: 0.45;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+/* ── Mastery quiz pill ── */
+.pillQuiz {
+  border-style: dashed !important;
+  border-color: rgba(183, 134, 11, 0.4) !important;
+  background: #FEFDF5 !important;
+  color: #7A5C00 !important;
+}
+
+.pillQuiz:hover:not(:disabled) {
+  background: #FEF8E1 !important;
+  border-color: rgba(183, 134, 11, 0.6) !important;
+}
+
+.pillQuizPassed {
+  border-style: solid !important;
+  border-color: rgba(76, 175, 125, 0.35) !important;
+  background: #E8F8EE !important;
+  color: #1E6B3C !important;
+}
+
+.pillQuizIcon {
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.pillQuizScore {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(0,0,0,0.06);
+  padding: 1px 6px;
+  border-radius: 99px;
+  margin-left: 2px;
+}

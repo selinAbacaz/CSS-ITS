@@ -6,32 +6,31 @@ import type { Lesson } from '../types/course';
 import styles from './HomePage.module.css';
 
 interface HomePageProps {
-  onSelectTopic: (lessonId: string, topicId: string) => void;
+  onSelectTopic:      (lessonId: string, topicId: string) => void;
+  onSelectLessonQuiz: (lessonId: string) => void;
 }
 
-export function HomePage({ onSelectTopic }: HomePageProps) {
+export function HomePage({ onSelectTopic, onSelectLessonQuiz }: HomePageProps) {
   const { isOpened, isCompleted, completedCount } = useProgress();
-  const { getMastery } = useMastery();
+  const { getMastery, getLessonQuizRecord, isLessonUnlocked } = useMastery();
   const totalTopics = COURSE.flatMap((l) => l.topics).length;
 
   function lessonProgress(lesson: Lesson) {
     const total = lesson.topics.length;
-    const done = lesson.topics.filter((t) => isCompleted(t.id)).length;
+    const done  = lesson.topics.filter((t) => isCompleted(t.id)).length;
     return { total, done, pct: total ? Math.round((done / total) * 100) : 0 };
   }
 
   return (
     <main className={styles.main}>
-      {/* Hero */}
       <section className={styles.hero}>
         <span className={styles.heroTag}>Start Learning</span>
         <h1 className={styles.heroTitle}>
-          Master CSS<br />
-          <em>from scratch.</em>
+          Master CSS<br /><em>from scratch.</em>
         </h1>
         <p className={styles.heroDesc}>
-          A structured, hands-on course covering everything from formatting to
-          complex animations. Pick a topic below to begin.
+          A structured, hands-on course covering everything from formatting to complex
+          animations. Complete each lesson's mastery quiz to unlock the next.
         </p>
         <div className={styles.stats}>
           <Stat value={COURSE.length} label="Lessons" />
@@ -40,38 +39,47 @@ export function HomePage({ onSelectTopic }: HomePageProps) {
         </div>
       </section>
 
-      {/* Lesson cards */}
       <div className={styles.cardList}>
         {COURSE.map((lesson) => {
-          const prog = lessonProgress(lesson);
+          const prog     = lessonProgress(lesson);
+          const unlocked = isLessonUnlocked(lesson.id);
+          const quizRec  = getLessonQuizRecord(lesson.id);
+
           return (
-            <div key={lesson.id} className={styles.card}>
-              <div className={styles.cardAccent} style={{ background: lesson.color }} />
+            <div
+              key={lesson.id}
+              className={`${styles.card} ${!unlocked ? styles.cardLocked : ''}`}
+            >
+              <div className={styles.cardAccent} style={{ background: unlocked ? lesson.color : '#C8C8C8' }} />
               <div className={styles.cardBody}>
                 <div className={styles.cardHeader}>
                   <span className={styles.cardTag}>{lesson.subtitle}</span>
                   <span className={styles.cardDifficulty}>{lesson.difficulty}</span>
+                  {!unlocked && (
+                    <span className={styles.cardLockedBadge}>🔒 Locked</span>
+                  )}
+                  {quizRec?.passed && (
+                    <span className={styles.cardPassedBadge}>✓ Quiz Passed</span>
+                  )}
                 </div>
+
                 <h2 className={styles.cardTitle}>{lesson.title}</h2>
                 <div className={styles.cardMeta}>
                   <span>⏱ {lesson.duration}</span>
                   <span>{lesson.topics.length} topics</span>
                 </div>
 
-                {/* Progress bar */}
                 <div className={styles.progressRow}>
                   <div className={styles.progressTrack}>
                     <div
                       className={styles.progressFill}
-                      style={{ width: `${prog.pct}%`, background: lesson.color }}
+                      style={{ width: `${prog.pct}%`, background: unlocked ? lesson.color : '#C8C8C8' }}
                     />
                   </div>
-                  <span className={styles.progressLabel}>
-                    {prog.done}/{prog.total} done
-                  </span>
+                  <span className={styles.progressLabel}>{prog.done}/{prog.total} done</span>
                 </div>
 
-                {/* Topic pills */}
+                {/* Topic pills — disabled if locked */}
                 <div className={styles.topicPills}>
                   {lesson.topics.map((topic) => {
                     const done   = isCompleted(topic.id);
@@ -80,16 +88,36 @@ export function HomePage({ onSelectTopic }: HomePageProps) {
                     return (
                       <button
                         key={topic.id}
-                        className={`${styles.pill} ${done ? styles.pillDone : opened ? styles.pillOpened : ''}`}
-                        onClick={() => onSelectTopic(lesson.id, topic.id)}
+                        className={`${styles.pill} ${done ? styles.pillDone : opened ? styles.pillOpened : ''} ${!unlocked ? styles.pillDisabled : ''}`}
+                        onClick={() => unlocked && onSelectTopic(lesson.id, topic.id)}
+                        disabled={!unlocked}
                       >
                         <span className={`${styles.pillDot} ${done ? styles.pillDotDone : opened ? styles.pillDotOpened : ''}`} />
                         {topic.title}
-                        <MasteryBadge level={mastery.level} size="sm" />
+                        {unlocked && <MasteryBadge level={mastery.level} size="sm" />}
                       </button>
                     );
                   })}
+
+                  {/* Mastery quiz pill */}
+                  <button
+                    className={`${styles.pill} ${styles.pillQuiz} ${quizRec?.passed ? styles.pillQuizPassed : ''} ${!unlocked ? styles.pillDisabled : ''}`}
+                    onClick={() => unlocked && onSelectLessonQuiz(lesson.id)}
+                    disabled={!unlocked}
+                  >
+                    <span className={styles.pillQuizIcon}>{quizRec?.passed ? '✓' : '★'}</span>
+                    Mastery Quiz
+                    {quizRec && (
+                      <span className={styles.pillQuizScore}>{quizRec.score}%</span>
+                    )}
+                  </button>
                 </div>
+
+                {!unlocked && (
+                  <p className={styles.lockedHint}>
+                    Pass the <strong>Mastery Quiz</strong> in {COURSE[COURSE.findIndex(l => l.id === lesson.id) - 1]?.subtitle} to unlock.
+                  </p>
+                )}
               </div>
             </div>
           );

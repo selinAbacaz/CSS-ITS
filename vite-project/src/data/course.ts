@@ -15,29 +15,37 @@ export const COURSE: Lesson[] = [
         duration: '8 min',
         content: {
           intro:
-            'Inline CSS applies styles directly to a single HTML element using the <code>style</code> attribute. It has the highest specificity but is the hardest to maintain.',
+            `<i><b>There are 3 types of CSS: inline, embedded, and external.</b></i><br /><br />
+            
+            Inline CSS applies styles directly inside a single HTML element using the <code>style</code> attribute.
+            It has the highest specificity but is the hardest to maintain.`,
           sections: [
             {
               heading: 'What is Inline CSS?',
-              body: 'Inline CSS means writing your styles as an attribute value inside the HTML tag itself. For example: <code>&lt;p style="color: red"&gt;Hello&lt;/p&gt;</code>. This overrides any external or embedded styles for that specific element.',
+              body: `Inline CSS means writing your styles as an attribute value inside the HTML tag itself. For example: <code>&lt;p style="color: red"&gt;Hello&lt;/p&gt;</code>. 
+              This overrides any external or embedded styles for that specific element. 
+              It is also important to note that the scope of inline CSS is only the tag in which you use it on (and any child tags if you included inheritted CSS)!`,
             },
             {
               heading: 'When to Use It',
-              body: 'Use inline CSS sparingly — best for quick one-off overrides, dynamically-generated styles via JavaScript, or HTML emails where external stylesheets are blocked.',
+              body: 'This type of CSS is best for quick <i>one-off</i> overrides, dynamically-generated styles via JavaScript, or HTML emails where external stylesheets are blocked. <br />Again, <b> The scope of inline CSS is the smallest of the 3 types, as it only applies to the individual tag (and sometimes its child tags) its applied on</b> <br/>The downside of this type of CSS especially is that it can get out of control quickly and the user will have to hunt down every instance of CSS if they want to change several of them. ',
             },
             {
               heading: 'Limitations',
-              body: "Inline styles are hard to maintain at scale. They mix structure (HTML) with presentation (CSS), can't use pseudo-classes like <code>:hover</code>, and make your markup bloated.",
+              body: "Like mentioned already, inline styles do not scale very well because of their individual nature. They also mix structure (HTML) with presentation (CSS), can't use pseudo-classes like <code>:hover</code>, and make your markup bloated. If your goal is to apply the same CSS to <b> several tags</b>, this is not the best form of CSS to use. ",
             },
           ],
           example: `<!-- Inline CSS Example -->
-<h1 style="color: #2B2B2B; font-family: Georgia;">
-  Hello World
-</h1>
 
-<p style="color: gray; line-height: 1.6;">
-  This paragraph has inline styles.
-</p>`,
+            <h1 style="color: #2B2B2B; font-family: Georgia;">
+              Hello World
+              
+            </h1>
+<!-- the color and font specified in the h1 tag does not apply to the p tag, only to itself. -->
+
+            <p style="line-height: 1.6;">
+              This paragraph has inline styles.
+            </p>`,
         },
       },
       {

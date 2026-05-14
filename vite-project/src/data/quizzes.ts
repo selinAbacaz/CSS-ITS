@@ -7,18 +7,18 @@ import type { Question } from '../types/quiz';
  */
 export const QUESTION_BANK: Question[] = [
 
-  // ── L1T1 · Inline CSS ─────────────────────────────────────────────────────
+  // Lesson 1 Topic 1, Inline CSS 
   {
     id: 'L1T1-Q1', type: 'mcq', topicId: 'L1T1',
     prompt: 'Which HTML attribute is used to apply inline CSS styles?',
     options: [
-      { id: 'a', text: 'class', wrongFeedback: 'The class attribute links to a CSS class — it doesn\'t hold style rules directly.' },
+      { id: 'a', text: 'class', wrongFeedback: 'The class attribute links to a CSS class — it doesn\'t hold style rules directly. The correct attribute to use is style= ""' },
       { id: 'b', text: 'style', },
-      { id: 'c', text: 'css', wrongFeedback: 'There is no "css" attribute in HTML. The correct one is "style".' },
-      { id: 'd', text: 'format', wrongFeedback: '"format" is not a valid HTML attribute at all.' },
+      { id: 'c', text: 'css', wrongFeedback: 'There is no "css" attribute in HTML. The correct one is style= ""' },
+      { id: 'd', text: 'format', wrongFeedback: '"format" is not a valid HTML attribute, the correct one is style= ""' },
     ],
     correctId: 'b',
-    correctFeedback: 'Exactly! The style attribute lets you write CSS rules directly on any HTML element — e.g. <p style="color:red">.',
+    correctFeedback: 'Correct ! The style attribute lets you write CSS rules directly on any HTML element- eg <p style="color:red">. <br></br>"css" and "format" are not valid HTML attributes. class is a valid for adding *external* css, not inline',
   },
   {
     id: 'L1T1-Q2', type: 'mcq', topicId: 'L1T1',
@@ -30,34 +30,48 @@ export const QUESTION_BANK: Question[] = [
       { id: 'd', text: '<p css="color: red;">Text</p>', wrongFeedback: '"css" is not a real HTML attribute.' },
     ],
     correctId: 'c',
-    correctFeedback: 'Perfect! Inline CSS uses style="property: value;" directly on the element tag.',
+    correctFeedback: `Correct ! Inline CSS uses style="property: value;" directly on the element tag. <br></br>Notice how it is inside the host tag "< here >" and called via "style" specifically- "class" would also work for adding CSS but only for CSS called from a stylesheet and not for inline. Applying CSS through a style tag is also possible but only for embedded CSS.`,
   },
   {
     id: 'L1T1-Q3', type: 'mcq', topicId: 'L1T1',
     prompt: 'Which statement about inline CSS is TRUE?',
     options: [
-      { id: 'a', text: 'It has the lowest specificity of all CSS methods.', wrongFeedback: 'Actually the opposite — inline styles have the HIGHEST specificity and override most other rules.' },
-      { id: 'b', text: 'It can use :hover and other pseudo-classes.', wrongFeedback: 'Pseudo-classes like :hover cannot be used inside an inline style attribute — they require a stylesheet.' },
+      { id: 'a', text: 'It has the lowest specificity of all CSS methods.', wrongFeedback: 'Actually the opposite- inline styles have the HIGHEST specificity and override most other rules.' },
+      { id: 'b', text: 'It can use :hover and other pseudo-classes.', wrongFeedback: 'Pseudo-classes like :hover cannot be used inside an inline style attribute- they require a stylesheet.' },
       { id: 'c', text: 'It applies styles to all elements on the page.', wrongFeedback: 'Inline CSS only targets the single element it is written on, not the whole page.' },
       { id: 'd', text: 'It has the highest specificity of all CSS methods.' },
     ],
     correctId: 'd',
-    correctFeedback: 'Correct! Inline CSS beats external and embedded styles in the specificity cascade — which is why it should be used sparingly.',
+    correctFeedback: `Correct ! Inline CSS beats external and embedded styles in the specificity cascade,which is why it should be used sparingly. <br></br> Inline css also cannot used pseudo classes, only stylesheets can. Inline Css also does not apply styles to all elements on the page, it is specific to the tag its applied to. `,
   },
   {
     id: 'L1T1-Q4', type: 'mcq', topicId: 'L1T1',
     prompt: 'When is inline CSS most appropriate to use?',
     options: [
-      { id: 'a', text: 'For styling an entire website consistently.' , wrongFeedback: 'External CSS is the right tool for site-wide consistency — not inline styles.' },
+      { id: 'a', text: 'For styling an entire website consistently.' , wrongFeedback: 'External CSS is the right tool for site-wide consistency, not inline styles- this is because inline does not scale well and it would be very hard to maintain.' },
       { id: 'b', text: 'For dynamically generated styles via JavaScript or HTML emails.' },
-      { id: 'c', text: 'Whenever you want to use :hover effects.', wrongFeedback: ':hover requires a stylesheet; it cannot be applied with inline styles.' },
+      { id: 'c', text: 'Whenever you want to use :hover effects.', wrongFeedback: ':hover requires a stylesheet; it cannot be applied with inline styles ' },
       { id: 'd', text: 'To keep styles centralized and maintainable.', wrongFeedback: 'Inline styles are scattered across your HTML — they are the hardest to maintain.' },
     ],
     correctId: 'b',
-    correctFeedback: 'Spot on! Dynamic JS styling and HTML emails are the two scenarios where inline CSS genuinely shines.',
+    correctFeedback: `Correct ! Dynamic JS styling and HTML emails are the two scenarios where inline CSS is best used. <br></br> It wouldnt work for styling an entire website because it does not scale well. It also cant be used for hover effects as a style sheet is needed for that. And lastly, inline cant be centralized because its scope is only the tag its applied to. `,
+  },
+  {
+    id: 'L1T1-Q5', type: 'mcq', topicId: 'L1T1',
+    prompt: 'What is the scope of inline CSS?',
+    options: [
+      { id: 'a', text: 'the tag its applied to'},
+      { id: 'b', text: 'all tags in the file', wrongFeedback:'Inline CSS does not affect the entire page. It only styles the specific element where the style attribute is written'},
+      { id: 'c', text: 'all tags of the same type', wrongFeedback:'Inline CSS does not target groups of elements. To style all tags of the same type, you would use a CSS selector. It only styles the specific element where the style attribute is written',},
+      { id: 'd', text: 'Only child elements inside the tag', wrongFeedback: 'Inline CSS applies directly to the element itself. Some properties like color or font may inherit to children, but the styles are not automatically applied to all child elements.',},
+    ],
+    correctId: 'a',
+    correctFeedback: ` Correct! Inline CSS only applies directly to the specific HTML element (and children if properties are inheritable) where the style attribute is written. 
+     Inline css does not affect the entire page, and it does not target groups of elements (you can do this in embedded and external css). 
+     It also does NOT automatically apply to all child elements, only inheritted properties apply `,
   },
 
-  // ── L1T2 · Embedded CSS ───────────────────────────────────────────────────
+  // Lesson 1 Topic 2, Embedded CSS 
   {
     id: 'L1T2-Q1', type: 'mcq', topicId: 'L1T2',
     prompt: 'Where does embedded (internal) CSS go in an HTML document?',
@@ -95,7 +109,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Right! For a quick single-page prototype, embedded CSS keeps everything in one file without the overhead of linking external sheets.',
   },
 
-  // ── L1T3 · External CSS ───────────────────────────────────────────────────
+  // Lesson 1 topic 3 External CSS
   {
     id: 'L1T3-Q1', type: 'mcq', topicId: 'L1T3',
     prompt: 'Which HTML tag is used to link an external CSS file?',
@@ -133,7 +147,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Perfect! One external file can style an entire website. Change it once and every linked page updates — that\'s the power of separation of concerns.',
   },
 
-  // ── L2T1 · Margin & Padding ───────────────────────────────────────────────
+  // Lesson 2 topic 1, Margin & Padding 
   {
     id: 'L2T1-Q1', type: 'mcq', topicId: 'L2T1',
     prompt: 'What is the key difference between margin and padding?',
@@ -171,7 +185,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Spot on! Two-value shorthand: first = top & bottom, second = left & right. So margin: 16px 32px means 16px vertically, 32px horizontally.',
   },
 
-  // ── L2T2 · Borders & Outlines ─────────────────────────────────────────────
+  // Lesson 2 topic 2, borders and outlines
   {
     id: 'L2T2-Q1', type: 'mcq', topicId: 'L2T2',
     prompt: 'What is the correct shorthand for setting a border?',
@@ -197,7 +211,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Exactly! Outlines sit outside the border box and don\'t push other elements — which is why they\'re perfect as focus ring indicators without disrupting layout.',
   },
 
-  // ── L2T3 · Box Sizing ─────────────────────────────────────────────────────
+  // Lesson 2 topic 3, box sizing
   {
     id: 'L2T3-Q1', type: 'mcq', topicId: 'L2T3',
     prompt: 'With box-sizing: content-box, an element has width: 200px and padding: 20px. What is its rendered width?',
@@ -235,7 +249,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Perfect! With border-box everywhere, the width you set is exactly what you get on screen. No more mental arithmetic adding up content + padding + border.',
   },
 
-  // ── L3T1 · Flex Container ─────────────────────────────────────────────────
+  // Lesson 3 topic 1, flex container
   {
     id: 'L3T1-Q1', type: 'mcq', topicId: 'L3T1',
     prompt: 'What CSS declaration turns an element into a flex container?',
@@ -273,7 +287,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Yes! justify-content controls the main axis. Use justify-content: center to center items horizontally in a row layout (or vertically in a column layout).',
   },
 
-  // ── L3T2 · Flex Items ─────────────────────────────────────────────────────
+  // Lesson 3 topic 2, flex items
   {
     id: 'L3T2-Q1', type: 'mcq', topicId: 'L3T2',
     prompt: 'What does flex: 1 mean on a flex item?',
@@ -299,7 +313,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Correct! align-self on an individual flex item overrides the container\'s align-items for just that one element.',
   },
 
-  // ── L3T3 · Flex Wrap & Gap ────────────────────────────────────────────────
+  // Lesson 3 topic 3, flex wrap and gap
   {
     id: 'L3T3-Q1', type: 'mcq', topicId: 'L3T3',
     prompt: 'What does flex-wrap: wrap do?',
@@ -325,7 +339,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Perfect! gap applies space only between items, so the container edges stay clean. With margin you often need negative margins or :first-child/:last-child tricks to compensate.',
   },
 
-  // ── L4T1 · Transitions ────────────────────────────────────────────────────
+  // Lesson 4 topic 1, transitions
   {
     id: 'L4T1-Q1', type: 'mcq', topicId: 'L4T1',
     prompt: 'Which CSS property creates a smooth animated change between two property values?',
@@ -351,7 +365,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Yes! transition: background-color 0.3s ease — property → duration → timing. You can optionally add a delay at the end: transition: color 0.2s ease 0.1s.',
   },
 
-  // ── L4T2 · Transforms ─────────────────────────────────────────────────────
+  // Lesson 4 topic 2, transforms
   {
     id: 'L4T2-Q1', type: 'mcq', topicId: 'L4T2',
     prompt: 'Which transform function moves an element without affecting layout?',
@@ -377,7 +391,7 @@ export const QUESTION_BANK: Question[] = [
     correctFeedback: 'Exactly! scale(1) = original size, scale(1.1) = 10% bigger, scale(0.5) = half size. It\'s a great way to create subtle "pop" hover effects.',
   },
 
-  // ── L4T3 · Keyframe Animations ────────────────────────────────────────────
+  // Lesson 4 topic 3, keyframe animations
   {
     id: 'L4T3-Q1', type: 'mcq', topicId: 'L4T3',
     prompt: 'What is the correct way to define a keyframe animation named "fadeIn"?',

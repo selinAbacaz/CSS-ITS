@@ -28,7 +28,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
   const answer    = answers[currentIdx];
   const isLast    = currentIdx === questions.length - 1;
 
-  // ── Handle answer selection ────────────────────────────────────────────────
+  
   function handleSelect(optionId: string) {
     if (phase !== 'answering') return;
     setChosen(optionId);
@@ -41,7 +41,6 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
     setPhase('feedback');
   }
 
-  // ── Advance to next question or summary ───────────────────────────────────
   function handleNext() {
     if (isLast) {
       finishQuiz();
@@ -52,7 +51,6 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
     }
   }
 
-  // ── Finish & record ───────────────────────────────────────────────────────
   const finishQuiz = useCallback(() => {
     const correctCount = answers.filter((a) => a.status === 'correct').length;
     const total        = questions.length;
@@ -63,14 +61,14 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
     onComplete({ total, correct: correctCount, score, passed });
   }, [answers, questions.length, topicId, recordQuizResult, onComplete]);
 
-  // ── Retake ────────────────────────────────────────────────────────────────
+  
   // Retake is handled by parent re-mounting this component with a new key.
   // We expose it via onComplete so parent can trigger.
 
-  // ── Render: Summary ───────────────────────────────────────────────────────
+  
   // (Summary is rendered in TopicPage — Quiz only shows questions + feedback)
 
-  // ── Render: question + options ────────────────────────────────────────────
+  
   const mastery = getMastery(topicId);
 
   function optionClass(optionId: string): string {
@@ -100,7 +98,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
 
   return (
     <div className={styles.quiz}>
-      {/* Header */}
+      
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <span className={styles.quizLabel}>Topic Quiz</span>
@@ -111,7 +109,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
         </span>
       </div>
 
-      {/* Progress dots */}
+      
       <div className={styles.dots}>
         {questions.map((_, i) => {
           const a = answers[i];
@@ -123,7 +121,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
         })}
       </div>
 
-      {/* Question */}
+      
       <div className={styles.questionCard}>
         <p className={styles.prompt}>{current.prompt}</p>
 
@@ -147,7 +145,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
           ))}
         </div>
 
-        {/* Feedback banner */}
+        
         {feedback && (
           <div className={`${styles.feedback} ${feedback.positive ? styles.feedbackPositive : styles.feedbackNegative}`}>
             <span className={styles.feedbackIcon}>{feedback.positive ? '🎉' : '💡'}</span>
@@ -156,7 +154,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
         )}
       </div>
 
-      {/* Next / Finish */}
+      
       {phase === 'feedback' && (
         <button className={styles.nextBtn} onClick={handleNext}>
           {isLast ? 'See Results →' : 'Next Question →'}
@@ -166,7 +164,6 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
   );
 }
 
-// ── Separate summary card shown by TopicPage after quiz finishes ──────────────
 
 interface QuizSummaryProps {
   result: QuizResult;

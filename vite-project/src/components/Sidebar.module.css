@@ -269,3 +269,109 @@
   background: var(--border);
   border-radius: 99px;
 }
+
+/* ── Locked lesson ── */
+.lessonLocked {
+  opacity: 0.55;
+  cursor: default !important;
+}
+
+.lockedLabel {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 99px;
+}
+
+/* ── Mastery quiz entry ── */
+.masteryQuizBtn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: none;
+  border: 1.5px dashed var(--border);
+  padding: 8px 9px;
+  border-radius: 9px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  color: var(--text-mid);
+  font-family: var(--font-body);
+  font-size: 0.79rem;
+  margin-top: 4px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.masteryQuizBtn:hover {
+  background: #FEF8E1;
+  border-color: rgba(183, 134, 11, 0.4);
+  color: var(--text);
+}
+
+.masteryQuizActive {
+  background: #FEF8E1 !important;
+  border-color: #E8A838 !important;
+  color: #7A5C00 !important;
+  border-style: solid !important;
+}
+
+.masteryQuizPassed {
+  background: #E8F8EE !important;
+  border-color: rgba(76, 175, 125, 0.4) !important;
+  border-style: solid !important;
+  color: #1E6B3C !important;
+}
+
+.masteryQuizIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(183, 134, 11, 0.12);
+  font-size: 0.7rem;
+  color: #B7860B;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+.masteryQuizIconPassed {
+  background: rgba(76, 175, 125, 0.15);
+  color: #1E8449;
+}
+
+.masteryQuizText {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.masteryQuizTitle {
+  font-size: 0.79rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.masteryQuizScore {
+  font-size: 0.63rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.masteryQuizNew {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: #B7860B;
+  background: rgba(183, 134, 11, 0.1);
+  padding: 2px 6px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}

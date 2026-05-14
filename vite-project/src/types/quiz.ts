@@ -57,3 +57,21 @@ export interface QuizResult {
   /** score 0-100 */
   score: number;
 }
+
+// ── Lesson-level quiz record ──────────────────────────────────────────────────
+
+export interface LessonQuizRecord {
+  lessonId: string;
+  passed: boolean;
+  score: number;
+  attempts: number;
+}
+
+/**
+ * After a lesson quiz, group per-topic outcomes so mastery updates per topic.
+ */
+export interface TopicQuizOutcome {
+  topicId: string;
+  correct: number;
+  total: number;
+}

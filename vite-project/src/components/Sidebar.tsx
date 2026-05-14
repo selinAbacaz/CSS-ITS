@@ -7,20 +7,29 @@ import type { Lesson, Topic } from '../types/course';
 import styles from './Sidebar.module.css';
 
 interface SidebarProps {
-  activeTopic: string | null;
-  onSelectTopic: (lessonId: string, topicId: string) => void;
+  activeTopic:      string | null;
+  activeLessonQuiz: string | null;
+  onSelectTopic:      (lessonId: string, topicId: string) => void;
+  onSelectLessonQuiz: (lessonId: string) => void;
   onGoHome: () => void;
 }
 
-export function Sidebar({ activeTopic, onSelectTopic, onGoHome }: SidebarProps) {
+export function Sidebar({
+  activeTopic,
+  activeLessonQuiz,
+  onSelectTopic,
+  onSelectLessonQuiz,
+  onGoHome,
+}: SidebarProps) {
   const { isOpened, isCompleted, completedCount } = useProgress();
-  const { getMastery } = useMastery();
-  const totalTopics = COURSE.flatMap((l) => l.topics).length;
-  const overallPct = totalTopics ? Math.round((completedCount / totalTopics) * 100) : 0;
+  const { getMastery, getLessonQuizRecord, isLessonUnlocked } = useMastery();
 
-  // Which lesson panels are expanded
+  const totalTopics = COURSE.flatMap((l) => l.topics).length;
+  const overallPct  = totalTopics ? Math.round((completedCount / totalTopics) * 100) : 0;
+
+  // Auto-expand whichever lesson is active
   const [expanded, setExpanded] = useState<Set<string>>(() => {
-    // Auto-expand the lesson containing the active topic
+    if (activeLessonQuiz) return new Set([activeLessonQuiz]);
     const lesson = COURSE.find((l) => l.topics.some((t) => t.id === activeTopic));
     return new Set(lesson ? [lesson.id] : []);
   });
@@ -28,28 +37,25 @@ export function Sidebar({ activeTopic, onSelectTopic, onGoHome }: SidebarProps) 
   function toggleLesson(id: string) {
     setExpanded((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      if (next.has(id)) next.delete(id); else next.add(id);
       return next;
     });
   }
 
   function lessonProgress(lesson: Lesson) {
     const total = lesson.topics.length;
-    const done = lesson.topics.filter((t) => isCompleted(t.id)).length;
+    const done  = lesson.topics.filter((t) => isCompleted(t.id)).length;
     return { total, done, pct: total ? Math.round((done / total) * 100) : 0 };
   }
 
   return (
     <aside className={styles.sidebar}>
-      {/* Brand */}
-      <button className={styles.brand} onClick={onGoHome} aria-label="Go to course home">
+      <button className={styles.brand} onClick={onGoHome} aria-label="Course home">
         <span className={styles.brandDot} />
         <span className={styles.brandName}>LearnCSS</span>
       </button>
       <p className={styles.brandSub}>Interactive Web Course</p>
 
-      {/* Overall progress */}
       <div className={styles.progressBox}>
         <div className={styles.progressLabel}>
           <span>Course Progress</span>
@@ -58,31 +64,28 @@ export function Sidebar({ activeTopic, onSelectTopic, onGoHome }: SidebarProps) 
         <div className={styles.progressTrack}>
           <div className={styles.progressFill} style={{ width: `${overallPct}%` }} />
         </div>
-        <p className={styles.progressSub}>
-          {completedCount} / {totalTopics} topics complete
-        </p>
+        <p className={styles.progressSub}>{completedCount} / {totalTopics} topics complete</p>
       </div>
 
-      {/* Lesson nav */}
       <nav className={styles.nav} aria-label="Course navigation">
         {COURSE.map((lesson) => {
-          const prog = lessonProgress(lesson);
-          const isOpen = expanded.has(lesson.id);
-          const allDone = prog.done === prog.total && prog.total > 0;
+          const prog     = lessonProgress(lesson);
+          const isOpen   = expanded.has(lesson.id);
+          const allDone  = prog.done === prog.total && prog.total > 0;
+          const unlocked = isLessonUnlocked(lesson.id);
+          const quizRec  = getLessonQuizRecord(lesson.id);
 
           return (
             <div key={lesson.id} className={styles.lessonGroup}>
-              {/* Lesson toggle button */}
               <button
-                className={`${styles.lessonBtn} ${allDone ? styles.lessonDone : ''}`}
-                onClick={() => toggleLesson(lesson.id)}
+                className={`${styles.lessonBtn} ${allDone ? styles.lessonDone : ''} ${!unlocked ? styles.lessonLocked : ''}`}
+                onClick={() => unlocked && toggleLesson(lesson.id)}
                 aria-expanded={isOpen}
+                disabled={!unlocked}
+                title={!unlocked ? 'Pass the previous lesson\'s mastery quiz to unlock' : undefined}
               >
-                <span
-                  className={styles.lessonIndicator}
-                  style={{ background: lesson.color }}
-                >
-                  {allDone ? <CheckIcon /> : lesson.id.replace('L', '')}
+                <span className={styles.lessonIndicator} style={{ background: unlocked ? lesson.color : '#C0C0C0' }}>
+                  {!unlocked ? <LockIcon /> : allDone ? <CheckIcon /> : lesson.id.replace('L', '')}
                 </span>
 
                 <span className={styles.lessonText}>
@@ -91,18 +94,18 @@ export function Sidebar({ activeTopic, onSelectTopic, onGoHome }: SidebarProps) 
                 </span>
 
                 <span className={styles.lessonMeta}>
-                  <span className={styles.lessonCount}>
-                    {prog.done}/{prog.total}
-                  </span>
-                  <ChevronIcon open={isOpen} />
+                  {unlocked && (
+                    <span className={styles.lessonCount}>{prog.done}/{prog.total}</span>
+                  )}
+                  {!unlocked
+                    ? <span className={styles.lockedLabel}>Locked</span>
+                    : <ChevronIcon open={isOpen} />
+                  }
                 </span>
               </button>
 
-              {/* Topic dropdown */}
-              <div
-                className={`${styles.topicList} ${isOpen ? styles.topicListOpen : ''}`}
-                aria-hidden={!isOpen}
-              >
+              <div className={`${styles.topicList} ${isOpen && unlocked ? styles.topicListOpen : ''}`} aria-hidden={!isOpen}>
+                {/* Topic entries */}
                 {lesson.topics.map((topic) => (
                   <TopicButton
                     key={topic.id}
@@ -115,6 +118,25 @@ export function Sidebar({ activeTopic, onSelectTopic, onGoHome }: SidebarProps) 
                     onSelect={onSelectTopic}
                   />
                 ))}
+
+                {/* ── Mastery Quiz entry ── */}
+                <button
+                  className={`${styles.masteryQuizBtn} ${activeLessonQuiz === lesson.id ? styles.masteryQuizActive : ''} ${quizRec?.passed ? styles.masteryQuizPassed : ''}`}
+                  onClick={() => onSelectLessonQuiz(lesson.id)}
+                >
+                  <span className={`${styles.masteryQuizIcon} ${quizRec?.passed ? styles.masteryQuizIconPassed : ''}`}>
+                    {quizRec?.passed ? '✓' : '★'}
+                  </span>
+                  <span className={styles.masteryQuizText}>
+                    <span className={styles.masteryQuizTitle}>Mastery Quiz</span>
+                    {quizRec && (
+                      <span className={styles.masteryQuizScore}>
+                        {quizRec.passed ? `Passed · ${quizRec.score}%` : `Last: ${quizRec.score}%`}
+                      </span>
+                    )}
+                  </span>
+                  {!quizRec && <span className={styles.masteryQuizNew}>Start</span>}
+                </button>
               </div>
             </div>
           );
@@ -137,17 +159,10 @@ interface TopicButtonProps {
 }
 
 function TopicButton({ topic, lessonId, isActive, isOpened, isCompleted, masteryLevel, onSelect }: TopicButtonProps) {
-  const dotClass = isCompleted
-    ? styles.dotDone
-    : isOpened
-    ? styles.dotOpened
-    : '';
-
+  const dotClass = isCompleted ? styles.dotDone : isOpened ? styles.dotOpened : '';
   return (
     <button
-      className={`${styles.topicBtn} ${isActive ? styles.topicActive : ''} ${
-        isCompleted ? styles.topicDone : ''
-      }`}
+      className={`${styles.topicBtn} ${isActive ? styles.topicActive : ''} ${isCompleted ? styles.topicDone : ''}`}
       onClick={() => onSelect(lessonId, topic.id)}
     >
       <span className={`${styles.dot} ${dotClass}`} />
@@ -160,37 +175,25 @@ function TopicButton({ topic, lessonId, isActive, isOpened, isCompleted, mastery
 function CheckIcon() {
   return (
     <svg viewBox="0 0 12 12" fill="none" width="12" height="12">
-      <path
-        d="M2 6l3 3 5-5"
-        stroke="white"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg viewBox="0 0 12 12" fill="none" width="11" height="11">
+      <rect x="2" y="5" width="8" height="6" rx="1.5" fill="white" opacity="0.9"/>
+      <path d="M4 5V3.5a2 2 0 014 0V5" stroke="white" strokeWidth="1.4" strokeLinecap="round" fill="none"/>
     </svg>
   );
 }
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
-    <svg
-      viewBox="0 0 16 16"
-      fill="none"
-      width="14"
-      height="14"
-      style={{
-        transition: 'transform 0.25s ease',
-        transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-        color: 'var(--text-muted)',
-        flexShrink: 0,
-      }}
-    >
-      <path
-        d="M4 6l4 4 4-4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
+    <svg viewBox="0 0 16 16" fill="none" width="14" height="14"
+      style={{ transition: 'transform 0.25s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', color: 'var(--text-muted)', flexShrink: 0 }}>
+      <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
