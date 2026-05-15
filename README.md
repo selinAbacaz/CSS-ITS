@@ -32,6 +32,12 @@ Lessons are divided into topics and have a multiple-choice quiz at the end of ea
 Red, yellow, and green system is used to measure mastery using a BKT-inspired algorithm.
 The pKnown starts at .1 which is also where red mastery is given-> You gain yellow (almost mastered) at pKnown .25, you gain green (mastery) at pKnown .9
 
+Current numbers:
+pKnown starts at .1,
+SLIP = 0.08,
+GUESS = 0.25,
+LEARN = 0.02,
+
 The red, green, and yellow mastery system is a good way to measure mastery while also not just telling the student "you are 20% mastered" which might be discouraging.
 This system was also inspired by Quizlet's flashcard mode !
 
