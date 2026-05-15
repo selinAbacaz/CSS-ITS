@@ -14,7 +14,7 @@ interface QuizProps {
 type Phase = 'answering' | 'feedback' | 'summary';
 
 export function Quiz({ topicId, onComplete }: QuizProps) {
-  const { selectQuizQuestions, recordQuizResult, getMastery } = useMastery();
+const { selectQuizQuestions, recordQuestionResult, getMastery } = useMastery();
 
   const [questions]           = useState<Question[]>(() => selectQuizQuestions(topicId));
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -33,6 +33,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
     if (phase !== 'answering') return;
     setChosen(optionId);
     const isCorrect = optionId === current.correctId;
+    recordQuestionResult(topicId, isCorrect);
     const newAnswers = [...answers];
     newAnswers[currentIdx] = isCorrect
       ? { status: 'correct',   chosenId: optionId }
@@ -52,16 +53,28 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
   }
 
   const finishQuiz = useCallback(() => {
-    const correctCount = answers.filter((a) => a.status === 'correct').length;
-    const total        = questions.length;
-    const score        = Math.round((correctCount / total) * 100);
-    const passed       = correctCount / total >= PASS_THRESHOLD;
-    recordQuizResult(topicId, correctCount, total);
-    setPhase('summary');
-    onComplete({ total, correct: correctCount, score, passed });
-  }, [answers, questions.length, topicId, recordQuizResult, onComplete]);
+  const correctCount = answers.filter(
+    (a) => a.status === 'correct'
+  ).length;
 
-  
+  const total = questions.length;
+
+  const score = Math.round(
+    (correctCount / total) * 100
+  );
+
+  const passed =
+    correctCount / total >= PASS_THRESHOLD;
+
+  setPhase('summary');
+
+  onComplete({
+    total,
+    correct: correctCount,
+    score,
+    passed,
+  });
+}, [answers, questions.length, onComplete]);
 
   
   const mastery = getMastery(topicId);
@@ -75,7 +88,7 @@ export function Quiz({ topicId, onComplete }: QuizProps) {
     return `${styles.option} ${styles.optionDim}`;
   }
 
-  
+
   function feedbackText(): { positive: boolean; text: string } {
     if (answer.status === 'correct') {
       return { positive: true, text: current.correctFeedback };
@@ -174,12 +187,12 @@ export function QuizSummary({ result, topicId, onRetake, onMarkComplete, canComp
 
   const getMessage = (): { headline: string; sub: string } => {
     if (result.passed && mastery.level === 'green') {
-      return { headline: 'Outstanding! 🏆', sub: 'You\'ve fully mastered this topic. You can now mark it complete.' };
+      return { headline: 'YAAAAY! ', sub: 'You\'ve fully mastered this topic. You can now mark it complete.' };
     }
     if (result.passed) {
-      return { headline: 'Great work! 🎉', sub: 'You passed. Keep practicing to reach full mastery and unlock completion.' };
+      return { headline: 'Great work! ', sub: 'You passed. Keep practicing to reach full mastery and unlock completion.' };
     }
-    return { headline: 'Not quite yet 📚', sub: 'You need 70% or higher to pass. Questions will focus on what you missed.' };
+    return { headline: 'Not quite yet ', sub: 'You need 70% or higher to pass. Questions will focus on what you missed.' };
   };
 
   const { headline, sub } = getMessage();

@@ -23,7 +23,8 @@ interface MasteryContextValue {
   getMastery:     (topicId: string) => TopicMastery;
   canMarkComplete:(topicId: string) => boolean;
 
-  recordQuizResult:(topicId: string, correctCount: number, total: number) => void;
+  
+  recordQuestionResult:(topicId: string, correct: boolean) => void;
   selectQuizQuestions:(topicId: string, count?: number) => Question[];
 
   selectLessonQuizQuestions:(lessonId: string, count?: number) => Question[];
@@ -39,9 +40,9 @@ const LESSON_QUIZ_KEY = 'learnCSS_lessonQuiz';
 
 
 function updateKnowledge(pKnown: number, correct: boolean): number {
-const SLIP = 0.05;
-const GUESS = 0.15;
-const LEARN = 0.08;
+const SLIP = 0.08;
+const GUESS = 0.25;
+const LEARN = 0.02;
 
   let posterior;
 
@@ -65,7 +66,7 @@ const LEARN = 0.08;
 function defaultMastery(topicId: string): TopicMastery {
   return {
     topicId,
-    pKnown: 0.2,
+    pKnown: 0.1,
     level: 'red',
     attempts: 0,
     correct: 0,
@@ -75,7 +76,7 @@ function defaultMastery(topicId: string): TopicMastery {
 
 
 function calcLevel(pKnown: number): MasteryLevel {
-  if (pKnown >= 0.8) return 'green';
+  if (pKnown >= 0.9) return 'green';
   if (pKnown >= 0.25) return 'yellow';
   return 'red';
 }
@@ -183,14 +184,39 @@ export function MasteryProvider({ children }: { children: ReactNode }) {
   },
   [],
 );
+const recordQuestionResult = useCallback(
+  (topicId: string, correct: boolean) => {
+    setMasteryMap((prev) => {
+      const current = prev[topicId] ?? defaultMastery(topicId);
+
+      const nextPKnown = updateKnowledge(
+        current.pKnown,
+        correct,
+      );
+
+      console.log(
+      `[BKT] ${topicId} | ${
+        correct ? 'Correct' : 'Wrong'
+      } | ${current.pKnown.toFixed(3)} → ${nextPKnown.toFixed(3)}`
+      );
+
+      return {
+        ...prev,
+        [topicId]: {
+          ...current,
+          pKnown: nextPKnown,
+          level: calcLevel(nextPKnown),
+          attempts: current.attempts + 1,
+          correct: current.correct + (correct ? 1 : 0),
+        },
+      };
+    });
+  },
+  [],
+);
 
  
-  const recordQuizResult = useCallback(
-    (topicId: string, correctCount: number, total: number) => {
-      setMasteryMap((prev) => applyTopicResult(prev, topicId, correctCount, total));
-    },
-    [applyTopicResult],
-  );
+  
 
   const selectQuizQuestions = useCallback(
     (topicId: string, count: number = TOPIC_QUIZ_LENGTH): Question[] => {
@@ -314,11 +340,12 @@ export function MasteryProvider({ children }: { children: ReactNode }) {
 
   return (
     <MasteryContext.Provider value={{
+      recordQuestionResult,
       masteryMap,
       lessonQuizMap,
       getMastery,
       canMarkComplete,
-      recordQuizResult,
+      
       selectQuizQuestions,
       selectLessonQuizQuestions,
       recordLessonQuizResult,

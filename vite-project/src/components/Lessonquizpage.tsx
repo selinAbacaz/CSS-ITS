@@ -118,14 +118,14 @@ export function LessonQuizPage({ lessonId, onBack, onNextLesson }: LessonQuizPag
               </div>
             </div>
             <div className={styles.ruleItem}>
-              <span className={styles.ruleIcon}>🔀</span>
+              <span className={styles.ruleIcon}></span>
               <div>
                 <p className={styles.ruleTitle}>Navigate freely</p>
                 <p className={styles.ruleSub}>Go back and review previous answers before you submit</p>
               </div>
             </div>
             <div className={styles.ruleItem}>
-              <span className={styles.ruleIcon}>📈</span>
+              <span className={styles.ruleIcon}></span>
               <div>
                 <p className={styles.ruleTitle}>Mastery updates</p>
                 <p className={styles.ruleSub}>Each answer affects your mastery for that specific topic</p>
