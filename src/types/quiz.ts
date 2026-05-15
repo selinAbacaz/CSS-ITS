@@ -3,11 +3,8 @@ export type MasteryLevel = 'red' | 'yellow' | 'green';
 
 export interface TopicMastery {
   topicId: string;
-
   pKnown: number;
-
   level: MasteryLevel;
-
   attempts: number;
 
   correct: number;

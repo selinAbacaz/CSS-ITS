@@ -16,7 +16,7 @@ interface LessonQuizProps {
 type SessionPhase = 'taking' | 'review' | 'submitted';
 
 
-export function LessonQuiz({ lessonId, questions, onComplete }: LessonQuizProps) {
+export function LessonQuiz({ questions, onComplete }: LessonQuizProps) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers]       = useState<AnswerState[]>(() =>
     questions.map(() => ({ status: 'unanswered' as const })),

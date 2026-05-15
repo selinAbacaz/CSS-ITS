@@ -1,32 +1,7 @@
 import "../App.css"
 
 export default function LessonPage() {
-  const lessonSections = [
-    {
-      id: "1.0",
-      title: "Introduction",
-      description:
-        "Overview of the lesson goals, concepts, and what students will build.",
-    },
-    {
-      id: "1.1",
-      title: "Core Concept",
-      description:
-        "Explain the first main concept with examples and visuals.",
-    },
-    {
-      id: "1.2",
-      title: "Practice Activity",
-      description:
-        "Interactive challenge or exercise section for students.",
-    },
-    {
-      id: "1.3",
-      title: "Mini Project",
-      description:
-        "Apply everything learned in a small guided project.",
-    },
-  ];
+  
 
   return (
     <><div className="page active" id="page-home">

@@ -28,11 +28,11 @@ export const COURSE: Lesson[] = [
             },
             {
               heading: 'When to Use It',
-              body: 'This type of CSS is best for quick <i>one-off</i> overrides, dynamically-generated styles via JavaScript, or HTML emails where external stylesheets are blocked. <br />Again, <b> The scope of inline CSS is the smallest of the 3 types, as it only applies to the individual tag (and sometimes its child tags) its applied on</b> <br/>The downside of this type of CSS especially is that it can get out of control quickly and the user will have to hunt down every instance of CSS if they want to change several of them. ',
+              body: 'This type of CSS is best for quick <i>one-off</i> overrides, dynamically-generated styles via JavaScript, Rapid prototyping, or overriding specific elements to name a few cases. <br />Again, <b> The scope of inline CSS is the smallest of the 3 types, as it only applies to the individual tag (and sometimes its child tags) its applied on</b> <br/>The downside of this type of CSS especially is that it can get out of control quickly and the user will have to hunt down every instance of CSS if they want to change several of them. ',
             },
             {
               heading: 'Limitations',
-              body: "Like mentioned already, inline styles do not scale very well because of their individual nature. They also mix structure (HTML) with presentation (CSS), can't use pseudo-classes like <code>:hover</code>, and make your markup bloated. If your goal is to apply the same CSS to <b> several tags</b>, this is not the best form of CSS to use. ",
+              body: "Like mentioned already, inline styles do not scale very well because of their individual nature. They also mix structure (HTML) with presentation (CSS), can't use pseudo-classes like <code>:hover</code>, and make your markup bloated. If your goal is to apply <b>the same CSS to  several tags</b>, this is not the best form of CSS to use. ",
             },
           ],
           example: `<!-- Inline CSS Example -->
@@ -54,19 +54,30 @@ export const COURSE: Lesson[] = [
         duration: '8 min',
         content: {
           intro:
-            'Embedded (or internal) CSS is written inside a <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> section of an HTML document. It applies to that page only.',
+            `Embedded (or internal) CSS is written inside a <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> section of an HTML document. It applies to that page only. This also means the scope of embedded CSS is also one page. 
+            <br />
+            We will also be going over topics like element selectors and class selectors in this lecture`,
+
+            
           sections: [
             {
               heading: 'What is Embedded CSS?',
-              body: 'You place a <code>&lt;style&gt;</code> block inside the <code>&lt;head&gt;</code> of your HTML file. All selectors and rules written there apply only to that single HTML page.',
+              body: `You place a <code>&lt;style&gt;</code> block inside the <code>&lt;head&gt;</code> of your HTML file. All selectors and rules written there apply only to that single HTML page. 
+                      Embedded CSS also has an interesting feature that inline CSS is not capable of: Element Selectors and Class Selectors
+                      <br/><br/>
+                      <b>Element selectors:</b> This is when you change the rules for an existing HTML tag directly. You can change the rules for existing tags like <code>&lt;h1&gt;</code> as an example.<br/>
+                      <b>Class Selectors:</b> This is when you create a custom style starting with a dot, you can then apply this CSS into tags via the class attribute. They also have a higher specificity than element selectors (which means they can override them) <br/><br/>
+                    In embedded CSS, you can redefine element selectors or you can create class selectors to apply to the tags in your file `,
             },
             {
               heading: 'Advantages',
-              body: "Embedded styles are great for single-page projects or prototypes. They're in one file, load immediately, and let you use the full power of CSS — including pseudo-classes, media queries, and animations.",
+              body: "Embedded styles are great for single-page projects or prototypes because you can still define CSS without having to make a separate page or use inline CSS on all your tags. They're in one file, load immediately, and let you use the most important features of CSS- including pseudo-classes, tag and class selectors, media queries, and animations.",
             },
             {
               heading: 'Disadvantages',
-              body: "They don't scale across multiple pages. If you want the same styles on 10 pages, you'd have to copy the <code>&lt;style&gt;</code> block 10 times — which is where External CSS shines.",
+              body: `They don't scale across multiple pages. If you want the same styles on 10 pages, you'd have to copy the <code>&lt;style&gt;</code> block 10 times.... OR use external CSS which is your next topic in the lesson !
+              
+                      It is also important to note that embedded CSS has a lower sepcificity than inline CSS, which essentially means if embedded CSS and inline CSS were added to the same tag and both had the same properties, inline would override the embedded CSS`,
             },
           ],
           example: `<head>
@@ -80,8 +91,26 @@ export const COURSE: Lesson[] = [
       color: #2B2B2B;
       font-size: 2rem;
     }
+
+    
+    .exampleClassSelector{
+        color: #d5a1ea;
+        background-color: #990044;
+        font-size: 4vw;
+    }
   </style>
-</head>`,
+</head>
+<body>
+
+<!-- it is also good to note here that if this was an h1 tag and had the exampleClassSelector class on it too, 
+the color would be #d5a1ea because it would override the element selector... 
+BUT if inline css was also applied, the inline css would override the class selector ! -->
+
+<div class="exampleClassSelector"></div>
+
+</body>
+
+`,
         },
       },
       {

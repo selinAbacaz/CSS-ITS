@@ -94,17 +94,19 @@ function weightedPick(
   masteryMap: Record<string, TopicMastery>,
   count: number,
 ): Question[] {
+
+  if (questions.length === 0) return [];
+
   const weighted: Question[] = [];
 
-  
   for (const q of questions) {
     const mastery = masteryMap[q.topicId];
     const pKnown = mastery?.pKnown ?? 0.2;
 
     
-    const w = Math.max(1, Math.round((1 - pKnown) * 5));
+    const weight = Math.max(1, Math.round((1 - pKnown) * 5));
 
-    for (let i = 0; i < w; i++) {
+    for (let i = 0; i < weight; i++) {
       weighted.push(q);
     }
   }
@@ -115,17 +117,27 @@ function weightedPick(
     [weighted[i], weighted[j]] = [weighted[j], weighted[i]];
   }
 
-  
-  const seen = new Set<string>();
   const result: Question[] = [];
+  const seen = new Set<string>();
 
+  
   for (const q of weighted) {
     if (!seen.has(q.id)) {
       seen.add(q.id);
       result.push(q);
     }
 
-    if (result.length >= count) break;
+    if (result.length >= count) {
+      return result;
+    }
+  }
+
+  
+  while (result.length < count) {
+    const random =
+      weighted[Math.floor(Math.random() * weighted.length)];
+
+    result.push(random);
   }
 
   return result;
@@ -137,7 +149,7 @@ export function MasteryProvider({ children }: { children: ReactNode }) {
   const [lessonQuizMap, setLessonQuizMap] = useState<Record<string, LessonQuizRecord>>(() => loadJSON(LESSON_QUIZ_KEY));
 
   useEffect(() => {
-    try { localStorage.setItem(MASTERY_KEY,     JSON.stringify(masteryMap));    } catch {}
+    try { localStorage.setItem(MASTERY_KEY, JSON.stringify(masteryMap));    } catch {}
   }, [masteryMap]);
 
   useEffect(() => {
@@ -244,20 +256,30 @@ const recordQuestionResult = useCallback(
       const prevPool    = QUESTION_BANK.filter((q) => prevTopicIds.has(q.topicId));
 
       
-      const currentCount = Math.round(count * 0.7);
-      const prevCount    = count - currentCount;
+      const hasPreviousLessons = prevPool.length > 0;
+
+      const currentCount = hasPreviousLessons
+        ? Math.round(count * 0.7)
+        : count;
+
+      const prevCount = hasPreviousLessons
+        ? count - currentCount
+        : 0;
 
       const currentPicked = weightedPick(currentPool, masteryMap, currentCount);
       const prevPicked    = weightedPick(prevPool,    masteryMap, prevCount);
 
       
       const merged = [...currentPicked, ...prevPicked];
-      for (let i = merged.length - 1; i > 0; i--) {
+      const uniqueMerged = Array.from(
+        new Map(merged.map(q => [q.id, q])).values()
+      );
+      for (let i = uniqueMerged.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [merged[i], merged[j]] = [merged[j], merged[i]];
+        [uniqueMerged[i], uniqueMerged[j]] = [uniqueMerged[j], uniqueMerged[i]];
       }
 
-      return merged.slice(0, count);
+      return uniqueMerged.slice(0, count);
     },
     [masteryMap],
   );
