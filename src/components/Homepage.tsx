@@ -3,7 +3,7 @@ import { useProgress } from '../context/ProgressContext';
 import { useMastery } from '../context/MasteryContext';
 import { MasteryBadge } from './Masterybadge';
 import type { Lesson } from '../types/course';
-import styles from './HomePage.module.css';
+import styles from './Homepage.module.css';
 
 interface HomePageProps {
   onSelectTopic:      (lessonId: string, topicId: string) => void;

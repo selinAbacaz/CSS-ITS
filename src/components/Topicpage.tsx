@@ -5,7 +5,7 @@ import { useMastery } from '../context/MasteryContext';
 import { Quiz, QuizSummary } from './Quiz';
 import { MasteryBadge } from './Masterybadge';
 import type { QuizResult } from '../types/quiz';
-import styles from './TopicPage.module.css';
+import styles from './Topicpage.module.css';
 
 interface TopicPageProps {
   lessonId: string;

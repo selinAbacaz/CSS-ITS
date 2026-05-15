@@ -1,5 +1,5 @@
 import type { MasteryLevel } from '../types/quiz';
-import styles from './MasteryBadge.module.css';
+import styles from './Masterybadge.module.css';
 
 interface MasteryBadgeProps {
   level: MasteryLevel;

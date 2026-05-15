@@ -4,7 +4,7 @@ import { PASS_THRESHOLD } from '../context/MasteryContext';
 import { useMastery } from '../context/MasteryContext';
 import { MasteryBadge } from './Masterybadge';
 import { COURSE } from '../data/course';
-import styles from './LessonQuiz.module.css';
+import styles from './Lessonquiz.module.css';
 
 
 interface LessonQuizProps {
