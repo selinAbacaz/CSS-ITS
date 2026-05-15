@@ -201,16 +201,18 @@ const recordQuestionResult = useCallback(
     setMasteryMap((prev) => {
       const current = prev[topicId] ?? defaultMastery(topicId);
 
-      const nextPKnown = updateKnowledge(
-        current.pKnown,
-        correct,
-      );
+const oldPKnown = current.pKnown ?? 0.1;
 
-      console.log(
-      `[BKT] ${topicId} | ${
-        correct ? 'Correct' : 'Wrong'
-      } | ${current.pKnown.toFixed(3)} → ${nextPKnown.toFixed(3)}`
-      );
+const nextPKnown = updateKnowledge(
+  oldPKnown,
+  correct,
+);
+
+console.log(
+  `[BKT] ${topicId} | ${
+    correct ? 'Correct' : 'Wrong'
+  } | ${oldPKnown.toFixed(3)} → ${nextPKnown.toFixed(3)}`
+);
 
       return {
         ...prev,
