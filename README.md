@@ -43,9 +43,14 @@ This system was also inspired by Quizlet's flashcard mode !
 
 #### topic quizzes
 
+Topic quizzes range from 3-5 questions each and are at the end of each topic lecture. pKnown is updated per question and fun fact: you can watch your pknown go up and down in the console.logs as you traverse the quiz :)
+You have to get a 70% or higher to pass the quiz, and then you can mark it as done- this will make the tab on the dropdown turn green to let you know you completed it.
 
 
 
 #### mastery quizzes
 
-
+Mastery quizzes happen at the end of each lesson. You have to pass the mastery quiz (also 70%) to be able to go to the next lesson. 
+They are around 2-3x longer than topic quizzes because they encompass questions from all topics inside the lesson.
+Students have the option to skip straight to the mastery quizzes- this is on purpose because some students might already know everything in that particular lesson and I dont want to subject them through several smaller quizzes.
+Also, questions you get wrong often should show up more often than questions you get right !
