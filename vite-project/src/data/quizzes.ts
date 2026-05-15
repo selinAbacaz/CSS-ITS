@@ -45,12 +45,12 @@ export const QUESTION_BANK: Question[] = [
     prompt: 'When is inline CSS most appropriate to use?',
     options: [
       { id: 'a', text: 'For styling an entire website consistently.' , wrongFeedback: 'External CSS is the right tool for site-wide consistency, not inline styles- this is because inline does not scale well and it would be very hard to maintain.' },
-      { id: 'b', text: 'For dynamically generated styles via JavaScript or HTML emails.' },
+      { id: 'b', text: 'Rapid prototyping, overriding specific elements.' },
       { id: 'c', text: 'Whenever you want to use :hover effects.', wrongFeedback: ':hover requires a stylesheet; it cannot be applied with inline styles ' },
       { id: 'd', text: 'To keep styles centralized and maintainable.', wrongFeedback: 'Inline styles are scattered across your HTML — they are the hardest to maintain.' },
     ],
     correctId: 'b',
-    correctFeedback: `Correct ! Dynamic JS styling and HTML emails are the two scenarios where inline CSS is best used.  It wouldnt work for styling an entire website because it does not scale well. It also cant be used for hover effects as a style sheet is needed for that. And lastly, inline cant be centralized because its scope is only the tag its applied to. `,
+    correctFeedback: `Correct ! Rapid prototyping, overriding specific elements are two scenarios where inline CSS is best used.  It wouldnt work for styling an entire website because it does not scale well. It also cant be used for hover effects as a style sheet is needed for that. And lastly, inline cant be centralized because its scope is only the tag its applied to. `,
   },
   {
     id: 'L1T1-Q5', type: 'mcq', topicId: 'L1T1',
@@ -98,12 +98,42 @@ export const QUESTION_BANK: Question[] = [
     options: [
       { id: 'a', text: 'A 50-page marketing website', wrongFeedback: 'You would have to copy the <style> block into all 50 pages — external CSS is the right choice here.' },
       { id: 'b', text: 'A single-page prototype or demo' },
-      { id: 'c', text: 'Styling HTML emails', wrongFeedback: 'HTML emails typically require inline CSS because many email clients strip <style> tags.' },
-      { id: 'd', text: 'Production apps with multiple developers', wrongFeedback: 'Teams need external CSS files that can be version-controlled and shared.' },
+      { id: 'c', text: 'Styling one tag', wrongFeedback: 'While embedded CSS has the power to style one tag, one tag does not use its full potential of being applied to any tag in that page' },
+      { id: 'd', text: 'Production apps with multiple developers', wrongFeedback: 'Teams usually use external CSS files rather than embedded because it can be version-controlled and shared easier.' },
     ],
     correctId: 'b',
-    correctFeedback: 'Right! For a quick single-page prototype, embedded CSS keeps everything in one file without the overhead of linking external sheets.',
+    correctFeedback: `Right! For a quick single-page prototype, embedded CSS keeps everything in one file without the overhead of linking external sheets. 
+    It is the perfect use considering that embedded CSS can only be used in one page but it has enough power to be applied to any tag in that page. `,
   },
+  {
+    id: 'L1T2-Q4', type: 'mcq', topicId: 'L1T2',
+    prompt: 'What is the scope of embedded CSS ?',
+    options: [
+      { id: 'a', text: 'Any file it is exported into', wrongFeedback:' Almost ! The scope of Embedded CSS is bigger than inline CSS, but not big enough to be used across multiple files'},
+      { id: 'b', text: 'The file it is defined in'},
+      { id: 'c', text: 'All tags in the file', wrongFeedback:'While embedded CSS can be used on any tag in the same file, it is not automatically applied to every tag, only the tags redefine in the style tag or tags that have a class attribute attached',},
+      { id: 'd', text: 'A single tag', wrongFeedback: 'The nature of embedded CSS allows you to use the same CSS across more than one tag',},
+    ],
+    correctId: 'b',
+    correctFeedback: ` Correct! Embedded CSS can be used anywhere inside the single file it is defined in, rather than just a single tag like inline CSS. 
+    You can redefine tags using embedded css, or create class selectors that you can apply to tags via the class="" attribute. It is important to note that while embedded css can be used anywhere in the file, it does not automatically apply
+    css to all tags, only the tags with a class applied to them or a matching element selector in the style tag `,
+  },
+  {
+    id: 'L1T2-Q5', type: 'mcq', topicId: 'L1T2',
+    prompt: 'What is the scope of embedded CSS ?',
+    options: [
+      { id: 'a', text: 'Any file it is exported into', wrongFeedback:' Almost ! The scope of Embedded CSS is bigger than inline CSS, but not big enough to be used across multiple files'},
+      { id: 'b', text: 'The file it is defined in'},
+      { id: 'c', text: 'All tags in the file', wrongFeedback:'While embedded CSS can be used on any tag in the same file, it is not automatically applied to every tag, only the tags redefine in the style tag or tags that have a class attribute attached',},
+      { id: 'd', text: 'A single tag', wrongFeedback: 'The nature of embedded CSS allows you to use the same CSS across more than one tag',},
+    ],
+    correctId: 'b',
+    correctFeedback: ` Correct! Embedded CSS can be used anywhere inside the single file it is defined in, rather than just a single tag like inline CSS. 
+    You can redefine tags using embedded css, or create class selectors that you can apply to tags via the class="" attribute. It is important to note that while embedded css can be used anywhere in the file, it does not automatically apply
+    css to all tags, only the tags with a class applied to them or a matching element selector in the style tag `,
+  },
+
 
   // Lesson 1 topic 3 External CSS
   {
@@ -142,6 +172,7 @@ export const QUESTION_BANK: Question[] = [
     correctId: 'b',
     correctFeedback: 'Perfect! One external file can style an entire website. Change it once and every linked page updates — that\'s the power of separation of concerns.',
   },
+  
 
   // Lesson 2 topic 1, Margin & Padding 
   {
