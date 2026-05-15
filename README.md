@@ -1,8 +1,23 @@
 # CSS-ITS
 
-## General Information
+## General Information and links
 
-The educational instruction/ lecture and the quiz questions for lesson one: CSS formatting are explicitely written by me :) The rest are filled in by chatgpt to show the vision
+The educational instruction/ lecture and the quiz questions for lesson one: CSS formatting are explicitely written by me !! The rest are filled in by chatgpt to show the vision
+
+### Citations and Links to important files:
+
+https://www.cs.williams.edu/~iris/res/bkt-balloon/index.html -> For BKT research/ what my BKT algorithm is based off of
+
+https://docs.google.com/presentation/d/1xYSCEG-X4Pq1Bn2h9kcEGnQOasjRsce99RjY4aD_nsQ/edit?usp=sharing -> View my google slides
+
+https://github.com/selinAbacaz/CSS-ITS/blob/main/vite-project/src/data/course.ts -> Where all of my ‘lesson lectures’ are for each topic
+
+https://github.com/selinAbacaz/CSS-ITS/blob/main/vite-project/src/data/quizzes.ts -> Where all of my quiz questions + feedback is written
+
+https://github.com/selinAbacaz/CSS-ITS/blob/main/vite-project/src/context/MasteryContext.tsx -> Where my BKT algorithm resides
+
+
+
 
 ### How lessons work
 
@@ -14,6 +29,17 @@ Lessons are divided into topics and have a multiple-choice quiz at the end of ea
 
 #### Red, yellow, green system
 
+Red, yellow, and green system is used to measure mastery using a BKT-inspired algorithm.
+The pKnown starts at .1 which is also where red mastery is given-> You gain yellow (almost mastered) at pKnown .25, you gain green (mastery) at pKnown .9
+
+The red, green, and yellow mastery system is a good way to measure mastery while also not just telling the student "you are 20% mastered" which might be discouraging.
+This system was also inspired by Quizlet's flashcard mode !
+
 #### topic quizzes
 
+
+
+
 #### mastery quizzes
+
+
