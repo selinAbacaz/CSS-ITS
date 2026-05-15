@@ -8,10 +8,10 @@ export const QUESTION_BANK: Question[] = [
     id: 'L1T1-Q1', type: 'mcq', topicId: 'L1T1',
     prompt: 'Which HTML attribute is used to apply inline CSS styles?',
     options: [
-      { id: 'a', text: 'class', wrongFeedback: 'The class attribute links to a CSS class — it doesn\'t hold style rules directly. The correct attribute to use is style= ""' },
+      { id: 'a', text: 'class', wrongFeedback: 'The class attribute links to a CSS class — it doesn\'t hold style rules directly. ' },
       { id: 'b', text: 'style', },
-      { id: 'c', text: 'css', wrongFeedback: 'There is no "css" attribute in HTML. The correct one is style= ""' },
-      { id: 'd', text: 'format', wrongFeedback: '"format" is not a valid HTML attribute, the correct one is style= ""' },
+      { id: 'c', text: 'css', wrongFeedback: 'There is no "css" attribute in HTML. ' },
+      { id: 'd', text: 'format', wrongFeedback: '"format" is not a valid HTML attribute' },
     ],
     correctId: 'b',
     correctFeedback: 'Correct ! The style attribute lets you write CSS rules directly on any HTML element- eg <p style="color:red">. <br></br>"css" and "format" are not valid HTML attributes. class is a valid for adding *external* css, not inline',
@@ -20,13 +20,13 @@ export const QUESTION_BANK: Question[] = [
     id: 'L1T1-Q2', type: 'mcq', topicId: 'L1T1',
     prompt: 'Which of the following is a valid example of inline CSS?',
     options: [
-      { id: 'a', text: '<p class="color: red;">Text</p>', wrongFeedback: 'That puts a CSS rule inside the class attribute, which expects a class name, not a rule.' },
-      { id: 'b', text: '<style>p { color: red; }</style>', wrongFeedback: 'This is embedded (internal) CSS inside a <style> tag, not inline.' },
+      { id: 'a', text: '<p class="color: red;">Text</p>', wrongFeedback: 'the class attribute is used to call CSS from external stylesheets, not for inline. ' },
+      { id: 'b', text: '<style>p { color: red; }</style>', wrongFeedback: 'This is embedded CSS inside a <style> tag, not inline.  ' },
       { id: 'c', text: '<p style="color: red;">Text</p>' },
       { id: 'd', text: '<p css="color: red;">Text</p>', wrongFeedback: '"css" is not a real HTML attribute.' },
     ],
     correctId: 'c',
-    correctFeedback: `Correct ! Inline CSS uses style="property: value;" directly on the element tag. <br></br>Notice how it is inside the host tag "< here >" and called via "style" specifically- "class" would also work for adding CSS but only for CSS called from a stylesheet and not for inline. Applying CSS through a style tag is also possible but only for embedded CSS.`,
+    correctFeedback: `Correct ! Inline CSS uses style="property: value;" directly on the element tag. Notice how it is inside the host tag "< here >" and called via "style" specifically- "class" would also work for adding CSS but only for CSS called from a stylesheet and not for inline. Applying CSS through a style tag is also possible but only for embedded CSS.`,
   },
   {
     id: 'L1T1-Q3', type: 'mcq', topicId: 'L1T1',
@@ -34,11 +34,11 @@ export const QUESTION_BANK: Question[] = [
     options: [
       { id: 'a', text: 'It has the lowest specificity of all CSS methods.', wrongFeedback: 'Actually the opposite- inline styles have the HIGHEST specificity and override most other rules.' },
       { id: 'b', text: 'It can use :hover and other pseudo-classes.', wrongFeedback: 'Pseudo-classes like :hover cannot be used inside an inline style attribute- they require a stylesheet.' },
-      { id: 'c', text: 'It applies styles to all elements on the page.', wrongFeedback: 'Inline CSS only targets the single element it is written on, not the whole page.' },
+      { id: 'c', text: 'It applies styles to all elements on the page.', wrongFeedback: 'Inline CSS only targets the single element it is written in, not the whole page.' },
       { id: 'd', text: 'It has the highest specificity of all CSS methods.' },
     ],
     correctId: 'd',
-    correctFeedback: `Correct ! Inline CSS beats external and embedded styles in the specificity cascade,which is why it should be used sparingly. <br></br> Inline css also cannot used pseudo classes, only stylesheets can. Inline Css also does not apply styles to all elements on the page, it is specific to the tag its applied to. `,
+    correctFeedback: `Correct ! Inline CSS beats external and embedded styles in the specificity cascade,which is why it should be used sparingly.  Inline css also cannot used pseudo classes, only stylesheets can. Inline Css also does not apply styles to all elements on the page, it is specific to the tag its applied to. `,
   },
   {
     id: 'L1T1-Q4', type: 'mcq', topicId: 'L1T1',
@@ -50,7 +50,7 @@ export const QUESTION_BANK: Question[] = [
       { id: 'd', text: 'To keep styles centralized and maintainable.', wrongFeedback: 'Inline styles are scattered across your HTML — they are the hardest to maintain.' },
     ],
     correctId: 'b',
-    correctFeedback: `Correct ! Dynamic JS styling and HTML emails are the two scenarios where inline CSS is best used. <br></br> It wouldnt work for styling an entire website because it does not scale well. It also cant be used for hover effects as a style sheet is needed for that. And lastly, inline cant be centralized because its scope is only the tag its applied to. `,
+    correctFeedback: `Correct ! Dynamic JS styling and HTML emails are the two scenarios where inline CSS is best used.  It wouldnt work for styling an entire website because it does not scale well. It also cant be used for hover effects as a style sheet is needed for that. And lastly, inline cant be centralized because its scope is only the tag its applied to. `,
   },
   {
     id: 'L1T1-Q5', type: 'mcq', topicId: 'L1T1',
