@@ -21,13 +21,12 @@ export function LessonQuizPage({ lessonId, onBack, onNextLesson }: LessonQuizPag
     recordLessonQuizResult,
     getLessonQuizRecord,
     getMastery,
-    isLessonUnlocked,
+    
   } = useMastery();
 
   const lesson       = COURSE.find((l) => l.id === lessonId);
   const lessonIdx    = COURSE.findIndex((l) => l.id === lessonId);
   const nextLesson   = COURSE[lessonIdx + 1] ?? null;
-  const prevRecord   = getLessonQuizRecord(lessonId);
 
   const [phase,     setPhase]     = useState<PagePhase>('intro');
   const [quizKey,   setQuizKey]   = useState(0);

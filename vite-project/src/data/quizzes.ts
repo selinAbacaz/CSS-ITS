@@ -38,7 +38,8 @@ export const QUESTION_BANK: Question[] = [
       { id: 'd', text: 'It has the highest specificity of all CSS methods.' },
     ],
     correctId: 'd',
-    correctFeedback: `Correct ! Inline CSS beats external and embedded styles in the specificity cascade,which is why it should be used sparingly.  Inline css also cannot used pseudo classes, only stylesheets can. Inline Css also does not apply styles to all elements on the page, it is specific to the tag its applied to. `,
+    correctFeedback: `Correct ! Inline CSS beats external and embedded styles in the specificity cascade,which is why it should be used sparingly.  
+    Inline css also cannot used pseudo classes, only stylesheets can. Inline Css also does not apply styles to all elements on the page, it is specific to the tag its applied to. `,
   },
   {
     id: 'L1T1-Q4', type: 'mcq', topicId: 'L1T1',
@@ -47,10 +48,12 @@ export const QUESTION_BANK: Question[] = [
       { id: 'a', text: 'For styling an entire website consistently.' , wrongFeedback: 'External CSS is the right tool for site-wide consistency, not inline styles- this is because inline does not scale well and it would be very hard to maintain.' },
       { id: 'b', text: 'Rapid prototyping, overriding specific elements.' },
       { id: 'c', text: 'Whenever you want to use :hover effects.', wrongFeedback: ':hover requires a stylesheet; it cannot be applied with inline styles ' },
-      { id: 'd', text: 'To keep styles centralized and maintainable.', wrongFeedback: 'Inline styles are scattered across your HTML — they are the hardest to maintain.' },
+      { id: 'd', text: 'To keep styles centralized and maintainable.', wrongFeedback: 'Inline styles are scattered across your HTML- they are the hardest to maintain.' },
     ],
     correctId: 'b',
-    correctFeedback: `Correct ! Rapid prototyping, overriding specific elements are two scenarios where inline CSS is best used.  It wouldnt work for styling an entire website because it does not scale well. It also cant be used for hover effects as a style sheet is needed for that. And lastly, inline cant be centralized because its scope is only the tag its applied to. `,
+    correctFeedback: `Correct ! Rapid prototyping, overriding specific elements are two scenarios where inline CSS is best used.  
+    It wouldnt work for styling an entire website because it does not scale well. It also cant be used for hover effects as a style sheet is needed for that. 
+    And lastly, inline cant be centralized because its scope is only the tag its applied to. `,
   },
   {
     id: 'L1T1-Q5', type: 'mcq', topicId: 'L1T1',
@@ -78,19 +81,21 @@ export const QUESTION_BANK: Question[] = [
       { id: 'd', text: 'As an attribute on each element', wrongFeedback: 'Writing styles as attributes is called inline CSS, not embedded CSS.' },
     ],
     correctId: 'c',
-    correctFeedback: 'Correct! Embedded CSS lives in a <style> block inside the <head> — it scopes styles to that single HTML file.',
+    correctFeedback: 'Correct! Embedded CSS lives in a <style> block inside the <head>, it scopes styles to that single HTML file. It cannot go anywhere else inside the file, it must always be defined in a <style> tag inside the <head> tag',
   },
   {
     id: 'L1T2-Q2', type: 'mcq', topicId: 'L1T2',
     prompt: 'What is the main limitation of embedded CSS?',
     options: [
-      { id: 'a', text: 'It cannot use class selectors.', wrongFeedback: 'Embedded CSS supports all CSS selectors — classes, IDs, pseudo-classes, everything.' },
+      { id: 'a', text: 'It cannot use class selectors.', wrongFeedback: 'Embedded CSS supports all CSS selectors- classes, IDs, pseudo-classes, everything !' },
       { id: 'b', text: 'It does not support animations.', wrongFeedback: 'Embedded CSS fully supports @keyframes and animations.' },
       { id: 'c', text: 'Styles only apply to the single page containing the <style> tag.' },
       { id: 'd', text: 'It overrides all inline styles.', wrongFeedback: 'Inline styles have higher specificity and override embedded styles, not the other way around.' },
     ],
     correctId: 'c',
-    correctFeedback: 'Exactly! Embedded CSS is page-scoped. To share styles across multiple pages you need external CSS.',
+    correctFeedback: `Exactly! Embedded CSS is page-scoped. To share styles across multiple pages you need external CSS. 
+    Besides that, embedded CSS is a lot more powerful than inline Css, especially because it can use powerful features like classes, animations, pseudo classes, etc
+    It is also important to note that embedded CSS does not have a higher specificity than inline- but thats not necessarily a bad thing, its just its nature`,
   },
   {
     id: 'L1T2-Q3', type: 'mcq', topicId: 'L1T2',
@@ -121,17 +126,29 @@ export const QUESTION_BANK: Question[] = [
   },
   {
     id: 'L1T2-Q5', type: 'mcq', topicId: 'L1T2',
-    prompt: 'What is the scope of embedded CSS ?',
+    prompt: `Imagine you have this code:
+    <style
+      h1{
+      color: white;
+      }
+
+      .colorIt{
+      color: pink;
+      }
+    </style>
+    and
+    <h1 class: "colorIt"> Hello World </h1>
+    what color is "Hello World" ?
+    `,
     options: [
-      { id: 'a', text: 'Any file it is exported into', wrongFeedback:' Almost ! The scope of Embedded CSS is bigger than inline CSS, but not big enough to be used across multiple files'},
-      { id: 'b', text: 'The file it is defined in'},
-      { id: 'c', text: 'All tags in the file', wrongFeedback:'While embedded CSS can be used on any tag in the same file, it is not automatically applied to every tag, only the tags redefine in the style tag or tags that have a class attribute attached',},
-      { id: 'd', text: 'A single tag', wrongFeedback: 'The nature of embedded CSS allows you to use the same CSS across more than one tag',},
+      { id: 'a', text: 'Trick question, it throws an error', wrongFeedback:' Although confusing, it is technically totally legal to have conflicting CSS on a tag'},
+      { id: 'b', text: 'white', wrongFeedback:'Close ! However, a class selector has higher specificity than an element selctor',},
+      { id: 'c', text: 'pink'},
+      { id: 'd', text: 'defaults to black', wrongFeedback: 'Having conflicting CSS does not default it back to pre-CSS settings, instead it uses whichever CSS has the higher specificity',},
     ],
-    correctId: 'b',
-    correctFeedback: ` Correct! Embedded CSS can be used anywhere inside the single file it is defined in, rather than just a single tag like inline CSS. 
-    You can redefine tags using embedded css, or create class selectors that you can apply to tags via the class="" attribute. It is important to note that while embedded css can be used anywhere in the file, it does not automatically apply
-    css to all tags, only the tags with a class applied to them or a matching element selector in the style tag `,
+    correctId: 'c',
+    correctFeedback: ` Correct! Since a class selector has higher specificity than an element selector, the color would be pink. 
+    This is also a completely legal move in CSS (although rather confusing), so it would not default back to black or throw an error- it would merely apply the CSS with the higher specificity `,
   },
 
 
